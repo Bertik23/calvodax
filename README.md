@@ -1,11 +1,12 @@
-|                                                                                                                                                                                                  |                                                |
-|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------:|
-| <span class="navLink"><a href="?X=Main" class="navLink">ProgTest</a>  ►  <a href="?X=Course&amp;Cou=377" class="navLink">BI-PA2 (22/23 LS)</a>  ►  <a href="?X=TaskGrp&amp;Cou=377&amp;Tgr=2437" 
- class="navLink">Semestrální úloha</a>  ►  **Aplikace: Kalkulačka s neomezenou přesností**</span>                                                                                                  | <a href="?X=Logout" class="navLink">Logout</a> |
+# Calvodax
 
-  
-  
-  
+Calvodax is a calculator, that can represent numbers with unlimited precision.
+
+
+
+
+
+# Zadání
 
 |                                                 |
 |-------------------------------------------------|
@@ -150,14 +151,6 @@ jedno Vaše řešení, vyučující nezačně hodnotit dokud mu úlohu nepčřed
 Dokud není úloha ohodnocena jak automatem tak i učitelem, nejsou
 přidělené žádné body (jsou zobrazována pouze dílčí hodnocení v
 procentech).</td>
-</tr>
-<tr class="even">
-<td class="lbCell" style="text-align: left;"
-data-valign="top"><strong>Odevzdat:</strong></td>
-<td class="bCell" style="text-align: left;" data-valign="top"></td>
-<td class="rbCell" style="text-align: right;" data-valign="top"><div
-class="w120 outButton">
-&#10;</div></td>
 </tr>
 </tbody>
 </table>
