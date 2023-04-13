@@ -63,10 +63,13 @@ letter:
     | 'Y'
     | 'Z'
 
-number:
+digit-seq:
     | digit
-    | . digit
-    | number digit
+    | digit digit-seq
+
+number:
+    | digit-seq . digit-seq
+    | digit-seq .
 
 char-seq:
     | letter
