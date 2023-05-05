@@ -14,7 +14,7 @@ Number & Number::operator = (const Number &) = default;
 Number & Number::operator = (Number &&) = default;
 
 Number & Number::operator += (const Number & other){
-    std::size_t i = 0;
+    usize i = 0;
     u32 cary = 0;
     for (;
          i < std::min(numbers.size(), other.numbers.size());
@@ -71,7 +71,7 @@ void Number::print(std::ostream & os) const {
 }
 
 Number & Number::operator *= (const Number & other){
-    std::size_t i = 0;
+    usize i = 0;
     u32 cary = 0;
     for (;
          i < std::min(numbers.size(), other.numbers.size());
