@@ -138,5 +138,10 @@ bool Number::operator < (const Number & other) const {
 
 }
 
+bool Number::is_zero() const {
+    for (const auto & i: numbers){
+        if (i)
+            return false;
     }
+    return true;
 }
