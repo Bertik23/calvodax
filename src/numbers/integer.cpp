@@ -119,3 +119,23 @@ Number Number::operator * (const Number & other) const{
     Number tmp(*this);
     return tmp *= other;
 }
+
+bool Number::operator < (const Number & other) const {
+    bool xr = false;
+    if (is_negative && other.is_negative)
+        xr = 1;
+    else if (is_negative && !other.is_negative)
+        return true;
+    else if (!is_negative && other.is_negative)
+        return false;
+    for (usize i = std::max(other.numbers.size(), numbers.size())-1; i > 0; --i){
+        if (i >= other.numbers.size() && numbers[i]){
+            return false ^ xr;
+        } else if (i >= numbers.size() && other.numbers[i])
+            return true ^ xr;
+    }
+    return numbers[0] < other.numbers[0];
+
+}
+
+}
