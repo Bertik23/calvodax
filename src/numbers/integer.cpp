@@ -20,6 +20,7 @@ Number::Number(const std::vector<u32> & v, bool is_negative = false): numbers(v)
 Number::Number(std::vector<u32> && v, bool is_negative = false): numbers(std::move(v)), is_negative(is_negative) {}
 
 Number & Number::operator += (const Number & other){
+    if (other.is_negative ^ is_negative) return operator -=(-other);
     usize i = 0;
     u32 cary = 0;
     for (;
@@ -141,7 +142,43 @@ bool Number::operator > (const Number & other) const {
 }
 bool Number::operator <= (const Number & other) const {
     return !(*this > other);
+}
 
+
+Number & Number::operator-=(const Number & other) {
+    if (other.is_negative ^ is_negative) return operator +=(-other);
+    bool sign = is_negative;
+    bool swap = false;
+    const Number & a = (*this > other) ? *this : other;
+    const Number & b = (*this <= other) ? (swap = true, *this) : other;
+    u32 borrow = 0;
+    std::vector<u32> result;
+    for (usize i = 0; i < a.numbers.size(); i++) {
+        u32 diff = a.numbers[i] - borrow;
+        if (i < b.numbers.size()) {
+            diff -= b.numbers[i];
+        }
+        if (diff > a.numbers[i]) {
+            borrow = 1;
+            // diff += (1ULL << 32);
+        } else {
+            borrow = 0;
+        }
+        result.push_back(diff);
+    }
+    *this = Number(result, is_negative ^ swap);
+    return *this;
+}
+
+Number Number::operator-(const Number & a) const{
+    return Number(*this) -= a;
+}
+
+Number Number::operator-() const{
+    if (is_zero()) return *this;
+    Number tmp(*this);
+    tmp.is_negative = !tmp.is_negative;
+    return tmp;
 }
 
 bool Number::is_zero() const {

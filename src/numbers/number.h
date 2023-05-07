@@ -14,9 +14,9 @@ public:
     virtual Number & operator = (const Number &);
     virtual Number & operator = (Number &&);
     virtual Number operator + (const Number &) const;
-    //virtual Number operator - (const Number &) const;
+    virtual Number operator - (const Number &) const;
     virtual Number operator * (const Number &) const;
-    //virtual Number operator / (const Number &) const;
+    virtual Number operator - () const;
     //virtual Number operator ^ (const Number &) const;
     //virtual Number operator | (const Number &) const;
     //virtual Number operator & (const Number &) const;
@@ -26,7 +26,7 @@ public:
     virtual bool operator >= (const Number &) const;
     //virtual bool operator == (const Number &) const;
     virtual Number & operator += (const Number &);
-    //virtual Number & operator -= (const Number &);
+    virtual Number & operator -= (const Number &);
     virtual Number & operator *= (const Number &);
     //virtual Number & operator /= (const Number &);
     //virtual Number & operator ^= (const Number &);
