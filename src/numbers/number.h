@@ -21,7 +21,9 @@ public:
     //virtual Number operator | (const Number &) const;
     //virtual Number operator & (const Number &) const;
     virtual bool operator < (const Number &) const;
-    //virtual bool operator > (const Number &) const;
+    virtual bool operator <= (const Number &) const;
+    virtual bool operator > (const Number &) const;
+    virtual bool operator >= (const Number &) const;
     //virtual bool operator == (const Number &) const;
     virtual Number & operator += (const Number &);
     //virtual Number & operator -= (const Number &);

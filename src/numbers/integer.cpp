@@ -131,6 +131,16 @@ bool Number::operator < (const Number & other) const {
             return true ^ xr;
     }
     return numbers[0] < other.numbers[0];
+}
+
+bool Number::operator >= (const Number & other) const {
+    return !(*this < other);
+}
+bool Number::operator > (const Number & other) const {
+    return (other < *this);
+}
+bool Number::operator <= (const Number & other) const {
+    return !(*this > other);
 
 }
 
