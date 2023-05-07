@@ -32,4 +32,28 @@ int main(){
     assert(Number(0) < Number(1));
     assert(!(Number(1) < Number(0)));
     assert(Number(-1) < Number(1));
+
+
+
+    cout << "\n\n--- PLUS ---\n" << endl; 
+
+    cout << Number(10) + Number(10) << endl;
+    cout << Number(-10) + Number(10) << endl;
+    cout << Number(10) + Number(-10) << endl;
+    cout << Number(10) + Number(-15) << endl;
+    cout << Number(-10) + Number(-15) << endl;
+    cout << Number(-10) + Number(15) << endl;
+
+
+    cout << "\n\n--- MINUS ---\n" << endl; 
+
+    cout << Number(10) - Number(5) << endl;
+    cout << Number(10) - Number(-5) << endl;
+    cout << Number(10) - Number(15) << endl;
+    cout << Number(10) - Number(10) << endl;
+    cout << Number(-10) - Number(10) << endl;
+    cout << Number(10) - Number(-10) << endl;
+    cout << Number(10) - Number(-15) << endl;
+    cout << Number(-10) - Number(-15) << endl;
+    cout << Number(-10) - Number(15) << endl;
 }
