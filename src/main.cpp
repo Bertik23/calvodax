@@ -56,4 +56,15 @@ int main(){
     cout << Number(10) - Number(-15) << endl;
     cout << Number(-10) - Number(-15) << endl;
     cout << Number(-10) - Number(15) << endl;
+
+
+    cout << "\n\n--- DIVISION ---\n" << endl; 
+
+    cout << Number(10) / Number(10) << endl;
+    cout << Number(-10) / Number(10) << endl;
+    cout << Number(10) / Number(-10) << endl;
+    cout << Number(-10) / Number(-10) << endl;
+    cout << Number(100) / Number(10) << endl;
+
+    cout << Number(1234) << endl;
 }
