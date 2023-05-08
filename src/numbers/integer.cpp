@@ -181,6 +181,38 @@ Number Number::operator-() const{
     return tmp;
 }
 
+Number Number::operator / (const Number & divider) const {
+    return divide(*this, divider).first;
+}
+
+Number Number::operator % (const Number & divider) const {
+    return divide(*this, divider).second;
+}
+
+Number & Number::operator /= (const Number & divider){
+    *this = *this / divider;
+    return *this;
+}
+
+Number & Number::operator %= (const Number & divider){
+    *this = *this % divider;
+    return *this;
+}
+
+std::pair<Number,Number> Number::divide (const Number & upper, const Number & lower) {
+    bool out_is_negative = upper.is_negative ^ lower.is_negative;
+
+    if (lower.is_zero()) throw std::logic_error("division by zero");
+
+    Number rem = upper.abs();
+    Number out(0);
+    while (rem >= lower.abs()){
+        rem -= lower.abs();
+        out += 1;
+    }
+    out.is_negative = out_is_negative;
+    return std::make_pair(out, rem);
+}
 bool Number::is_zero() const {
     for (const auto & i: numbers){
         if (i)

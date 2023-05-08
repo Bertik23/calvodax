@@ -17,6 +17,8 @@ public:
     virtual Number operator - (const Number &) const;
     virtual Number operator * (const Number &) const;
     virtual Number operator - () const;
+    virtual Number operator / (const Number &) const;
+    virtual Number operator % (const Number &) const;
     //virtual Number operator ^ (const Number &) const;
     //virtual Number operator | (const Number &) const;
     //virtual Number operator & (const Number &) const;
@@ -28,7 +30,8 @@ public:
     virtual Number & operator += (const Number &);
     virtual Number & operator -= (const Number &);
     virtual Number & operator *= (const Number &);
-    //virtual Number & operator /= (const Number &);
+    virtual Number & operator /= (const Number &);
+    virtual Number & operator %= (const Number &);
     //virtual Number & operator ^= (const Number &);
     //virtual Number & operator |= (const Number &);
     //virtual Number & operator &= (const Number &);
@@ -40,6 +43,7 @@ public:
     virtual bool is_zero() const;
     virtual Number abs() const;
 private:
+    static std::pair<Number, Number> divide(const Number &, const Number &);
     std::vector<u32> numbers;
     bool is_negative = false;
 };
