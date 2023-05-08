@@ -44,6 +44,8 @@ public:
     virtual Number abs() const;
 private:
     static std::pair<Number, Number> divide(const Number &, const Number &);
+    static void print_rec(std::ostream &, const Number &);
+    // static u32 find_digit(const Number &, const Number &);
     std::vector<u32> numbers;
     bool is_negative = false;
 };

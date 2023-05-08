@@ -67,14 +67,36 @@ Number Number::operator + (const Number & other) const{
  * Print big int
 */
 void Number::print(std::ostream & os) const {
+    if (is_zero()) {
+        os << "0";
+        return;
+    }
     if (is_negative){
         os << "-";
     }
-    
-    for (auto & i: numbers){
-        os << i;
-        os << ", ";
+    // Hex
+    os << std::hex;
+    for (auto it = numbers.rbegin(); it != numbers.rend(); ++it){
+        os << std::setw(8) << *it;
     }
+    return;
+    // Decimal
+    print_rec(os, *this);
+}
+
+void Number::print_rec(std::ostream & os, const Number & x){
+    if ( x < 10 )
+    {
+        os << x.numbers[0];
+        return;
+    }
+
+    // std::cerr << "1" << std::endl;
+
+    auto o = divide(x, 10);
+    os << o.first;
+    os << o.second;
+    // print_rec(os, o.first);
 }
 
 Number & Number::operator *= (const Number & other){
@@ -147,7 +169,6 @@ bool Number::operator <= (const Number & other) const {
 
 Number & Number::operator-=(const Number & other) {
     if (other.is_negative ^ is_negative) return operator +=(-other);
-    bool sign = is_negative;
     bool swap = false;
     const Number & a = (*this > other) ? *this : other;
     const Number & b = (*this <= other) ? (swap = true, *this) : other;
@@ -213,6 +234,14 @@ std::pair<Number,Number> Number::divide (const Number & upper, const Number & lo
     out.is_negative = out_is_negative;
     return std::make_pair(out, rem);
 }
+
+// u32 Number::find_digit (Number upper, const Number & lower){
+//     u32 num = 0;
+//     while (upper > lower){
+        
+//     }
+// }
+
 bool Number::is_zero() const {
     for (const auto & i: numbers){
         if (i)
