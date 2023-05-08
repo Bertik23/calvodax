@@ -188,3 +188,7 @@ bool Number::is_zero() const {
     }
     return true;
 }
+
+Number Number::abs() const {
+    return Number(numbers, false);
+}

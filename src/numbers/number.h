@@ -38,6 +38,7 @@ public:
         return os;
     }
     virtual bool is_zero() const;
+    virtual Number abs() const;
 private:
     std::vector<u32> numbers;
     bool is_negative = false;
