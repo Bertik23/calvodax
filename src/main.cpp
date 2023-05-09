@@ -1,11 +1,17 @@
 #include "numbers/number.h"
 #include <cassert>
+#include "parser/tokenizer.h"
 
 #include <iostream>
 
 using namespace std;
 
 int main(){
+    for (const auto & a: tokenize(cin)){
+        cout << a << endl;
+    }
+
+    return 0;
     Number a((1LL << 31) - 1);
     Number b(20);
 
