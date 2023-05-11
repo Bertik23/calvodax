@@ -1,0 +1,86 @@
+\hypertarget{classAsignBinOp}{}\doxysection{Asign\+Bin\+Op Class Reference}
+\label{classAsignBinOp}\index{AsignBinOp@{AsignBinOp}}
+Inheritance diagram for Asign\+Bin\+Op\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{dd/dd4/classAsignBinOp}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNumber}{Number}} $\ast$ \mbox{\hyperlink{classAsignBinOp_a675b99a979e0e29dfb688abf715d966e}{eval}} () const override
+\item 
+\mbox{\hyperlink{classAsignBinOp}{Asign\+Bin\+Op}} $\ast$ \mbox{\hyperlink{classAsignBinOp_a74d815245eb535eb23378f913a1e8dd6}{clone}} () const override
+\item 
+void \mbox{\hyperlink{classAsignBinOp_a06060a657a9ab9326748497d8ccb2793}{print}} (std\+::ostream \&) const override
+\item 
+\mbox{\Hypertarget{classAsignBinOp_aa5542276af015da8b842b08756853c5f}\label{classAsignBinOp_aa5542276af015da8b842b08756853c5f}} 
+{\bfseries Bin\+Op} (const \mbox{\hyperlink{classASTNode}{ASTNode}} \&lhs, const \mbox{\hyperlink{classASTNode}{ASTNode}} \&rhs)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions inherited from \mbox{\hyperlink{classBinOp}{Bin\+Op}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBinOp_aa5542276af015da8b842b08756853c5f}\label{classBinOp_aa5542276af015da8b842b08756853c5f}} 
+{\bfseries Bin\+Op} (const \mbox{\hyperlink{classASTNode}{ASTNode}} \&lhs, const \mbox{\hyperlink{classASTNode}{ASTNode}} \&rhs)
+\end{DoxyCompactItemize}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classASTNode_a2340e24f0571d57195b6c22ce991d2c4}\label{classASTNode_a2340e24f0571d57195b6c22ce991d2c4}} 
+virtual \mbox{\hyperlink{classNumber}{Number}} $\ast$ {\bfseries eval} () const =0
+\item 
+\mbox{\Hypertarget{classASTNode_a5f3ffbcce92711a7e68e9e217504993f}\label{classASTNode_a5f3ffbcce92711a7e68e9e217504993f}} 
+virtual \mbox{\hyperlink{classASTNode}{ASTNode}} $\ast$ {\bfseries clone} () const =0
+\item 
+\mbox{\Hypertarget{classASTNode_a20780eb641e3395ae1d7299ea42f0eef}\label{classASTNode_a20780eb641e3395ae1d7299ea42f0eef}} 
+virtual void {\bfseries print} (std\+::ostream \&) const =0
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+\doxysubsubsection*{Protected Attributes inherited from \mbox{\hyperlink{classBinOp}{Bin\+Op}}}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBinOp_a9499a5f9541b007a7800877fadb7890d}\label{classBinOp_a9499a5f9541b007a7800877fadb7890d}} 
+\mbox{\hyperlink{classASTNode}{ASTNode}} $\ast$ {\bfseries lhs}
+\item 
+\mbox{\Hypertarget{classBinOp_aa885865c938c6a728b0027b76ea95d81}\label{classBinOp_aa885865c938c6a728b0027b76ea95d81}} 
+\mbox{\hyperlink{classASTNode}{ASTNode}} $\ast$ {\bfseries rhs}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classAsignBinOp_a74d815245eb535eb23378f913a1e8dd6}\label{classAsignBinOp_a74d815245eb535eb23378f913a1e8dd6}} 
+\index{AsignBinOp@{AsignBinOp}!clone@{clone}}
+\index{clone@{clone}!AsignBinOp@{AsignBinOp}}
+\doxysubsubsection{\texorpdfstring{clone()}{clone()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classAsignBinOp}{Asign\+Bin\+Op}} $\ast$ Asign\+Bin\+Op\+::clone (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classASTNode}{ASTNode}}.
+
+\mbox{\Hypertarget{classAsignBinOp_a675b99a979e0e29dfb688abf715d966e}\label{classAsignBinOp_a675b99a979e0e29dfb688abf715d966e}} 
+\index{AsignBinOp@{AsignBinOp}!eval@{eval}}
+\index{eval@{eval}!AsignBinOp@{AsignBinOp}}
+\doxysubsubsection{\texorpdfstring{eval()}{eval()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNumber}{Number}} $\ast$ Asign\+Bin\+Op\+::eval (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classASTNode}{ASTNode}}.
+
+\mbox{\Hypertarget{classAsignBinOp_a06060a657a9ab9326748497d8ccb2793}\label{classAsignBinOp_a06060a657a9ab9326748497d8ccb2793}} 
+\index{AsignBinOp@{AsignBinOp}!print@{print}}
+\index{print@{print}!AsignBinOp@{AsignBinOp}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void Asign\+Bin\+Op\+::print (\begin{DoxyParamCaption}\item[{std\+::ostream \&}]{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classASTNode}{ASTNode}}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/parser/parser.\+h\item 
+src/parser/parser.\+cpp\end{DoxyCompactItemize}

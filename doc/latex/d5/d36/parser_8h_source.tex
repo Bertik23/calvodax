@@ -1,0 +1,106 @@
+\hypertarget{parser_8h_source}{}\doxysection{parser.\+h}
+\label{parser_8h_source}\index{src/parser/parser.h@{src/parser/parser.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <list>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}../typedefs.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}../numbers/number.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}tokenizer.h"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{keyword}{static}\ std::unordered\_map<std::string,\ i32>\ OP\_PRECEDENSE\ \{}
+\DoxyCodeLine{00011\ \ \ \ \ \{\textcolor{stringliteral}{"{}="{}},\ 1\},}
+\DoxyCodeLine{00012\ \ \ \ \ \{\textcolor{stringliteral}{"{}+"{}},\ 10\},}
+\DoxyCodeLine{00013\ \ \ \ \ \{\textcolor{stringliteral}{"{}-\/"{}},\ 10\},}
+\DoxyCodeLine{00014\ \ \ \ \ \{\textcolor{stringliteral}{"{}*"{}},\ 20\},}
+\DoxyCodeLine{00015\ \ \ \ \ \{\textcolor{stringliteral}{"{}/"{}},\ 20\}}
+\DoxyCodeLine{00016\ \};}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classASTNode}{ASTNode}}\{}
+\DoxyCodeLine{00019\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classASTNode}{\string~ASTNode}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classNumber}{Number}}\ *\ eval()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keyword}{virtual}\ \mbox{\hyperlink{classASTNode}{ASTNode}}\ *\ clone()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ print(std::ostream\ \&)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00024\ \};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classBinOp}{BinOp}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classASTNode}{ASTNode}}\{}
+\DoxyCodeLine{00027\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00028\ \ \ \ \ \mbox{\hyperlink{classBinOp}{BinOp}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classASTNode}{ASTNode}}\ \&\ lhs,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classASTNode}{ASTNode}}\ \&\ rhs);}
+\DoxyCodeLine{00029\ \ \ \ \ \mbox{\hyperlink{classBinOp}{\string~BinOp}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00030\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00031\ \ \ \ \ \mbox{\hyperlink{classASTNode}{ASTNode}}\ *\ lhs;}
+\DoxyCodeLine{00032\ \ \ \ \ \mbox{\hyperlink{classASTNode}{ASTNode}}\ *\ rhs;}
+\DoxyCodeLine{00033\ \};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classUnOp}{UnOp}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classASTNode}{ASTNode}}\{}
+\DoxyCodeLine{00036\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00037\ \ \ \ \ \mbox{\hyperlink{classUnOp}{UnOp}}(\textcolor{keyword}{const}\ \mbox{\hyperlink{classASTNode}{ASTNode}}\ \&\ arg);}
+\DoxyCodeLine{00038\ \ \ \ \ \mbox{\hyperlink{classUnOp}{\string~UnOp}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00039\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00040\ \ \ \ \ \mbox{\hyperlink{classASTNode}{ASTNode}}\ *\ arg;}
+\DoxyCodeLine{00041\ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classValue}{Value}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classASTNode}{ASTNode}}\{}
+\DoxyCodeLine{00044\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00045\ \ \ \ \ \mbox{\hyperlink{classValue}{Value}}(\textcolor{keyword}{const}\ std::string\ \&);}
+\DoxyCodeLine{00046\ \ \ \ \ \mbox{\hyperlink{classValue}{\string~Value}}()\ \textcolor{keyword}{override};}
+\DoxyCodeLine{00047\ \ \ \ \ \mbox{\hyperlink{classNumber}{Number}}\ *\ eval()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00048\ \ \ \ \ \mbox{\hyperlink{classValue}{Value}}\ *\ clone()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{void}\ print(std::ostream\ \&)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00050\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00051\ \ \ \ \ \mbox{\hyperlink{classNumber}{Number}}\ *\ value;}
+\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classPlusBinOp}{PlusBinOp}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinOp}{BinOp}}\{}
+\DoxyCodeLine{00055\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keyword}{using\ }BinOp::BinOp;}
+\DoxyCodeLine{00057\ \ \ \ \ \mbox{\hyperlink{classNumber}{Number}}\ *\ eval()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00058\ \ \ \ \ \mbox{\hyperlink{classPlusBinOp}{PlusBinOp}}\ *\ clone()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{void}\ print(std::ostream\ \&)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00060\ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classMinusBinOp}{MinusBinOp}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinOp}{BinOp}}\{}
+\DoxyCodeLine{00063\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keyword}{using\ }BinOp::BinOp;}
+\DoxyCodeLine{00065\ \ \ \ \ \mbox{\hyperlink{classNumber}{Number}}\ *\ eval()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00066\ \ \ \ \ \mbox{\hyperlink{classMinusBinOp}{MinusBinOp}}\ *\ clone()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00067\ \ \ \ \ \textcolor{keywordtype}{void}\ print(std::ostream\ \&)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00068\ \};}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classTimesBinOp}{TimesBinOp}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinOp}{BinOp}}\{}
+\DoxyCodeLine{00071\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keyword}{using\ }BinOp::BinOp;}
+\DoxyCodeLine{00073\ \ \ \ \ \mbox{\hyperlink{classNumber}{Number}}\ *\ eval()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00074\ \ \ \ \ \mbox{\hyperlink{classTimesBinOp}{TimesBinOp}}\ *\ clone()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00075\ \ \ \ \ \textcolor{keywordtype}{void}\ print(std::ostream\ \&)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00076\ \};}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classDivideBinOp}{DivideBinOp}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinOp}{BinOp}}\{}
+\DoxyCodeLine{00079\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keyword}{using\ }BinOp::BinOp;}
+\DoxyCodeLine{00081\ \ \ \ \ \mbox{\hyperlink{classNumber}{Number}}\ *\ eval()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00082\ \ \ \ \ \mbox{\hyperlink{classDivideBinOp}{DivideBinOp}}\ *\ clone()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00083\ \ \ \ \ \textcolor{keywordtype}{void}\ print(std::ostream\ \&)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00084\ \};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classAsignBinOp}{AsignBinOp}}:\ \textcolor{keyword}{public}\ \mbox{\hyperlink{classBinOp}{BinOp}}\{}
+\DoxyCodeLine{00087\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keyword}{using\ }BinOp::BinOp;}
+\DoxyCodeLine{00089\ \ \ \ \ \mbox{\hyperlink{classNumber}{Number}}\ *\ eval()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00090\ \ \ \ \ \mbox{\hyperlink{classAsignBinOp}{AsignBinOp}}\ *\ clone()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{void}\ print(std::ostream\ \&)\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00092\ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \mbox{\hyperlink{classASTNode}{ASTNode}}\ *\ parse(std::list<Token>\ \&);}
+\DoxyCodeLine{00095\ \mbox{\hyperlink{classASTNode}{ASTNode}}\ *\ parse\_expr(std::list<Token>\ \&);}
+\DoxyCodeLine{00096\ \mbox{\hyperlink{classASTNode}{ASTNode}}\ *\ parse\_paren(std::list<Token>\ \&);}
+\DoxyCodeLine{00097\ \mbox{\hyperlink{classASTNode}{ASTNode}}\ *\ parse\_primary(std::list<Token>\ \&);}
+\DoxyCodeLine{00098\ \mbox{\hyperlink{classASTNode}{ASTNode}}\ *\ parse\_bin\_op\_rhs(std::list<Token>\ \&,\ \mbox{\hyperlink{classASTNode}{ASTNode}}\ *,\ i32);}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00100\ std::ostream\ \&\ operator\ <<\ (std::ostream\ \&,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{classASTNode}{ASTNode}}\ \&);}
+
+\end{DoxyCode}
