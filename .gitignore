@@ -114,3 +114,5 @@ tags
 */build
 calvodax
 .vscode
+
+*.zip
