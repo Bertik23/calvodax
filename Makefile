@@ -32,5 +32,9 @@ doc:
 	rm -rf ./doc
 	doxygen
 
+zip:
+	rm -f havlialb.zip
+	zip -ll -r havlialb src examples Doxyfile Grammar Makefile zadani.txt prohlaseni.txt
+
 
 .PHONY: all, run, build, clean, doc
