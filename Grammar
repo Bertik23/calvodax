@@ -78,7 +78,8 @@ char-seq:
 variable:
     | char-seq
 
-operator:
+    
+binary-operator
     | '+'
     | '-'
     | '*'
@@ -91,5 +92,40 @@ operator:
     | '&'
     | '|'
 
+unary-operator:
+    | '+'
+    | '-'
+    
+operator:
+
+
+separator:
+    | ','
+
+delimeter:
+    | ';'
+    | '\n'
+
 binary-operation:
-    | expresion operator expresion
+    | expresion binary-operator expresion
+
+unary-operation:
+    | unary-operator expresion
+
+parameter:
+    | number
+    | variable
+
+parameters:
+    | parameter
+    | parameter separator parameters
+
+function-call:
+    | char-seq '(' parameters ')'
+
+expresion:
+    | variable
+    | number
+    | binary-operation
+    | function-call
+    | expresion delimeter expresion
