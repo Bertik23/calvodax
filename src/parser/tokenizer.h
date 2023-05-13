@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <list>
 #include <iostream>
@@ -6,8 +8,12 @@ enum class TokenType{
     Identifier,
     LParen,
     RParen,
-    Number
+    Number,
+    Operator,
+    Delim
 };
+
+std::ostream & operator << (std::ostream & os, const TokenType & t);
 
 struct Token{
     Token(TokenType type, std::string value = ""): type(type), value(value) {};

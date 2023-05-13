@@ -1,15 +1,26 @@
 #include "numbers/number.h"
 #include <cassert>
 #include "parser/tokenizer.h"
+#include "parser/parser.h"
 
 #include <iostream>
 
 using namespace std;
 
 int main(){
-    for (const auto & a: tokenize(cin)){
+    auto tokens = tokenize(cin);
+    for (const auto & a: tokens){
         cout << a << endl;
     }
+
+    cout << "---------------\n";
+
+    auto ast = parse(static_cast<std::list<Token>&>(tokens));
+
+    cout << *ast << endl;
+
+    cout << *ast->eval() << endl;
+
 
     return 0;
     Number a((1LL << 31) - 1);

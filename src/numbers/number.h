@@ -1,6 +1,9 @@
+#pragma once
+
 #include <vector>
 #include <iostream>
 #include "../typedefs.h"
+#include <string>
 
 class Number{
 public:
@@ -10,6 +13,7 @@ public:
     Number(std::vector<u32> &&, bool);
     Number(const Number &);
     Number(Number &&);
+    Number(const std::string &);
     virtual ~Number();
     virtual Number & operator = (const Number &);
     virtual Number & operator = (Number &&);
@@ -42,6 +46,7 @@ public:
     }
     virtual bool is_zero() const;
     virtual Number abs() const;
+    virtual Number * clone() const;
 private:
     static std::pair<Number, Number> divide(const Number &, const Number &);
     static void print_rec(std::ostream &, const Number &);

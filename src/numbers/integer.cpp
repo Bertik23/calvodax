@@ -16,8 +16,10 @@ Number::Number(Number && o) = default;
 Number & Number::operator = (const Number &) = default;
 Number & Number::operator = (Number &&) = default;
 
-Number::Number(const std::vector<u32> & v, bool is_negative = false): numbers(v), is_negative(is_negative) {}
-Number::Number(std::vector<u32> && v, bool is_negative = false): numbers(std::move(v)), is_negative(is_negative) {}
+Number::Number(const std::vector<u32> & v, bool is_negative = false)
+  : numbers(v), is_negative(is_negative) {}
+Number::Number(std::vector<u32> && v, bool is_negative = false)
+  : numbers(std::move(v)), is_negative(is_negative) {}
 
 Number & Number::operator += (const Number & other){
     if (other.is_negative ^ is_negative) return operator -=(-other);
@@ -77,7 +79,7 @@ void Number::print(std::ostream & os) const {
     // Hex
     os << std::hex;
     for (auto it = numbers.rbegin(); it != numbers.rend(); ++it){
-        os << std::setw(8) << *it;
+        os << /* std::setw(8) << */ *it;
     }
     return;
     // Decimal
@@ -147,7 +149,11 @@ bool Number::operator < (const Number & other) const {
         return true;
     else if (!is_negative && other.is_negative)
         return false;
-    for (usize i = std::max(other.numbers.size(), numbers.size())-1; i > 0; --i){
+    for (
+        usize i = std::max(other.numbers.size(), numbers.size())-1;
+        i > 0;
+        --i
+    ){
         if (i >= other.numbers.size() && numbers[i]){
             return false ^ xr;
         } else if (i >= numbers.size() && other.numbers[i])
@@ -253,3 +259,9 @@ bool Number::is_zero() const {
 Number Number::abs() const {
     return Number(numbers, false);
 }
+
+Number * Number::clone() const {
+    return new Number(*this);
+}
+
+Number::Number(const std::string & num): numbers{(u32)std::stoi(num)} {}
