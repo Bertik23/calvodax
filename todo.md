@@ -1,5 +1,12 @@
 [] Grammar
 [] Big number representation
-[] tokeniser
-[] parser
-[] interpret
+    * [x] addition
+    * [x] subtraction
+    * [x] multiplication
+    * [ ] division
+[x] tokeniser
+[] parser/interpret
+    [x] expresions
+    [x] variables
+    [x] code block
+    [ ] functions
