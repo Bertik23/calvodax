@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['timesbinop_0',['TimesBinOp',['../d3/d4b/classTimesBinOp.html',1,'']]],
-  ['token_1',['Token',['../df/dcd/structToken.html',1,'']]]
+  ['rational_0',['Rational',['../d8/da7/classRational.html',1,'']]]
 ];

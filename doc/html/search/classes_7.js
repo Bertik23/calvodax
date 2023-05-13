@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['rational_0',['Rational',['../d8/da7/classRational.html',1,'']]]
+  ['plusbinop_0',['PlusBinOp',['../dc/d8c/classPlusBinOp.html',1,'']]]
 ];
