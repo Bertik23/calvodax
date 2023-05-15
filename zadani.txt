@@ -30,7 +30,7 @@ Where does Calvodax use polymorphism:
 * Number representation different types of number are descendents of an abstract
   Number class.
 
-```marmaid
+```mermaid
 classDiagram
     Number <|-- Integer
     Number <|-- Rational
