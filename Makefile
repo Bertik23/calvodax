@@ -18,6 +18,8 @@ build: $(OBJ)
 	$(LD) $(LDFLAGS) $^ -o calvodax
 
 clean:
+	rm -rf ./havlialb
+	rm -f havlialb.zip
 	rm -f ./calvodax
 	rm -rf ./build
 
@@ -34,7 +36,11 @@ doc:
 
 zip:
 	rm -f havlialb.zip
-	zip -ll -r havlialb src examples Doxyfile Grammar Makefile zadani.txt prohlaseni.txt
+	rm -rf havlialb
+	mkdir -p havlialb
+	cp -r src examples Doxyfile Grammar Makefile zadani.txt prohlaseni.txt havlialb
+	zip -ll -r havlialb havlialb
+	rm -r havlialb
 
 
 .PHONY: all, run, build, clean, doc
