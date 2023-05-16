@@ -16,6 +16,7 @@ run: build
 
 build: $(OBJ)
 	$(LD) $(LDFLAGS) $^ -o calvodax
+	cp ./calvodax ./havlialb
 
 clean:
 	rm -rf ./havlialb
