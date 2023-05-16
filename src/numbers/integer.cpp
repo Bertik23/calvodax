@@ -1,4 +1,5 @@
 #include "number.h"
+
 #include <cmath>
 #include <iomanip>
 

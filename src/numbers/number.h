@@ -2,8 +2,9 @@
 
 #include <vector>
 #include <iostream>
-#include "../typedefs.h"
 #include <string>
+
+#include "../typedefs.h"
 
 class Number{
 public:

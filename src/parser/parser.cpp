@@ -1,7 +1,9 @@
 #include "parser.h"
+
 #include <unordered_map>
-#include "../utils/defaut_ptr.h"
 #include <sstream>
+
+#include "../utils/defaut_ptr.h"
 
 static std::unordered_map<std::string, default_ptr<Number>> VARIABLE_MAP;
 

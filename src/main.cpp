@@ -1,9 +1,10 @@
-#include "numbers/number.h"
 #include <cassert>
+#include <iostream>
+
+#include "numbers/number.h"
 #include "parser/tokenizer.h"
 #include "parser/parser.h"
 
-#include <iostream>
 
 using namespace std;
 
