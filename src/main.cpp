@@ -4,23 +4,44 @@
 #include "numbers/number.h"
 #include "parser/tokenizer.h"
 #include "parser/parser.h"
-
+#include "utils/exceptions.h"
 
 using namespace std;
 
+template<typename T>
+ostream & dbg_os(ostream & os, const T & t){
+    return os << "Debug: " << t << endl;
+}
+
+template<typename T>
+void dbg(const T & t){
+    dbg_os<T>(cerr, t);
+}
+
 int main(){
-    auto tokens = tokenize(cin);
-    for (const auto & a: tokens){
-        cout << a << endl;
+    while (cin){
+        cout << ">>> ";
+        
+        string line;
+        std::getline(cin, line);
+        auto tokens = tokenize(line);
+        for (const auto & a: tokens){
+            cout << a << endl;
+        }
+
+        cout << "---------------\n";
+        ASTNode * ast;
+        try {
+            ast = parse(static_cast<std::list<Token>&>(tokens));
+        } catch (syntax_error & e){
+            cout << "Syntax error: " + string(e.what()) << endl;
+            continue;
+        }
+
+        dbg(*ast);
+
+        cout << "<<< " << *ast->eval() << endl;
     }
-
-    cout << "---------------\n";
-
-    auto ast = parse(static_cast<std::list<Token>&>(tokens));
-
-    cout << *ast << endl;
-
-    cout << *ast->eval() << endl;
 
 
     return 0;
