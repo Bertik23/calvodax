@@ -4,6 +4,8 @@
 #include <sstream>
 
 #include "../utils/defaut_ptr.h"
+#include "../utils/exceptions.h"
+#include "../utils/utils.h"
 
 static std::unordered_map<std::string, default_ptr<Number>> VARIABLE_MAP;
 
@@ -47,7 +49,10 @@ BinOp::~BinOp(){
     delete rhs;
 }
 
-BinOp::BinOp(const BinOp & other): lhs(other.lhs->clone()), rhs(other.rhs->clone()) {}
+BinOp::BinOp(const BinOp & other)
+    : lhs(other.lhs->clone()),
+      rhs(other.rhs->clone())
+    {}
 
 BinOp & BinOp::operator = (const BinOp & other){
     delete lhs;
@@ -191,7 +196,7 @@ i32 get_operator_precedense(const Token & token){
     try{
         return OP_PRECEDENSE.at(token.value);
     } catch (std::out_of_range & e) {
-        return INT32_MIN;
+        return INT32_MAX;
     }
 }
 
@@ -211,12 +216,14 @@ ASTNode * make_bin_op(const Token & oper, ASTNode * lhs, ASTNode * rhs){
     if (oper.value == "="){
         return new AsignBinOp(*lhs, *rhs);
     }
-    std::ostringstream os("1 2");
-    os << oper;
-    throw std::logic_error(std::string("Not wtf") + os.str() );
+
+    throw syntax_error("Unknown operator: " + to_string(oper));
 }
 
-ASTNode * parse_bin_op_rhs(std::list<Token> & token_stream, ASTNode * lhs_, i32 min_operator_precedense){
+ASTNode * parse_bin_op_rhs(
+    std::list<Token> & token_stream,
+    ASTNode * lhs_, i32 min_operator_precedense
+){
     ASTNode * lhs = lhs_->clone();
     while (true){
         i32 operator_precedense;
