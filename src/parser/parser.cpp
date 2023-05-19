@@ -54,6 +54,7 @@ BinOp & BinOp::operator = (const BinOp & other){
     delete rhs;
     lhs = other.lhs->clone();
     rhs = other.rhs->clone();
+    return *this;
 }
 
 // -----------------------------------------------------------------------------
@@ -63,6 +64,14 @@ UnOp::UnOp(const ASTNode & arg): arg(arg.clone()){}
 
 UnOp::~UnOp(){
     delete arg;
+}
+
+UnOp::UnOp(const UnOp & other): arg(other.arg->clone()) {}
+
+UnOp & UnOp::operator = (const UnOp & other){
+    delete arg;
+    arg = other.arg->clone();
+    return *this;
 }
 
 // -----------------------------------------------------------------------------

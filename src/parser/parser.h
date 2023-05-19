@@ -52,6 +52,8 @@ class UnOp : public ASTNode{
 public:
     UnOp(const ASTNode & arg);
     ~UnOp() override;
+    UnOp(const UnOp &);
+    UnOp & operator = (const UnOp &);
 protected:
     ASTNode * arg;
 };
