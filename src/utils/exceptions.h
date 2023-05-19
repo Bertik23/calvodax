@@ -12,3 +12,8 @@ private:
 class syntax_error: public text_error{
     using text_error::text_error;
 };
+
+class exit_exception: public text_error{
+public:
+    exit_exception();
+};

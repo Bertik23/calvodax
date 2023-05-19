@@ -36,6 +36,8 @@ int main(){
         } catch (syntax_error & e){
             cout << "Syntax error: " + string(e.what()) << endl;
             continue;
+        } catch (exit_exception &){
+            return 0;
         }
 
         dbg(*ast);

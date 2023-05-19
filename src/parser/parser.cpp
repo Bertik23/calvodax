@@ -264,6 +264,9 @@ ASTNode * parse_literal(std::list<Token> & token_stream){
 }
 
 ASTNode * parse_ident(std::list<Token> & token_stream){
+    if (token_stream.front().value == "exit"){
+        throw exit_exception();
+    }
     Var * var = new Var(token_stream.front().value);
     token_stream.pop_front();
     return var;
