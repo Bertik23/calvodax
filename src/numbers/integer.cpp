@@ -160,7 +160,11 @@ bool Number::operator < (const Number & other) const {
         } else if (i >= numbers.size() && other.numbers[i])
             return true ^ xr;
     }
-    return numbers[0] < other.numbers[0];
+    if (numbers.size() == 0)
+        return (0 < other.numbers[0]) ^ xr;
+    if (other.numbers.size() == 0)
+        return (numbers[0] < 0) ^ xr;
+    return (numbers[0] < other.numbers[0]) ^ xr;
 }
 
 bool Number::operator >= (const Number & other) const {
@@ -171,6 +175,14 @@ bool Number::operator > (const Number & other) const {
 }
 bool Number::operator <= (const Number & other) const {
     return !(*this > other);
+}
+
+bool Number::operator == (const Number & other) const {
+    if (is_negative != other.is_negative) return false;
+    if (numbers.size() != other.numbers.size()) return false;
+    for (usize i = 0; i < numbers.size(); ++i){
+        if (numbers[i] != other.numbers[i]) return false;
+    }
 }
 
 
@@ -227,10 +239,45 @@ Number & Number::operator %= (const Number & divider){
     return *this;
 }
 
-std::pair<Number,Number> Number::divide (const Number & upper, const Number & lower) {
+u32 find_digit(const Number & a, const Number & b){
+    u32 digit = (1 << 30);
+    u32 step = digit;
+    while (!(b * digit <= a && b*(digit+1) > a)){
+        step >>= 1;
+        if (b * digit > a){
+            digit -= step;
+        } else digit += step;
+    }
+    return digit;
+}
+
+std::pair<Number,Number> Number::divide (Number upper, const Number & lower) {
     bool out_is_negative = upper.is_negative ^ lower.is_negative;
 
     if (lower.is_zero()) throw std::logic_error("division by zero");
+
+
+    std::vector<u32> top_digits;
+    
+    std::vector<u32> out_digits;
+
+    while (upper > lower){
+        for (
+            usize i = upper.numbers.size() - 1;
+            Number(top_digits) < lower && top_digits.size() != upper.numbers.size();
+            --i)
+        {
+            top_digits.insert(top_digits.begin(), upper.numbers[i]);
+        }
+        u32 digit = find_digit(top_digits, lower);
+        std::vector<u32> greater{1};
+        for (usize i = 0; i < upper.numbers.size() - top_digits.size(); ++i)
+            greater.push_back(0);
+        upper -= (lower * digit * greater);
+        out_digits.insert(out_digits.begin(), digit);
+    }
+
+    return std::make_pair<Number, Number>(Number(out_digits), std::move(upper));
 
     Number rem = upper.abs();
     Number out(0);
@@ -266,3 +313,17 @@ Number * Number::clone() const {
 }
 
 Number::Number(const std::string & num): numbers{(u32)std::stoi(num)} {}
+
+Number Number::operator>>(u32 shift) const{
+    return Number(*this) >>= shift;
+}
+
+Number & Number::operator>>=(u32 shift) {
+    if (shift > 32) exit(1);
+    for (usize i = 0; i < numbers.size() - 1; ++i){
+        u64 tmp = numbers[i] | ((u64)numbers[i+1] << 32);
+        tmp >>= shift;
+        numbers[i] = tmp;
+    }
+    return *this;
+}

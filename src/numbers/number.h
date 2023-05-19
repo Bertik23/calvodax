@@ -31,6 +31,7 @@ public:
     virtual bool operator <= (const Number &) const;
     virtual bool operator > (const Number &) const;
     virtual bool operator >= (const Number &) const;
+    virtual bool operator == (const Number &) const;
     //virtual bool operator == (const Number &) const;
     virtual Number & operator += (const Number &);
     virtual Number & operator -= (const Number &);
@@ -49,9 +50,11 @@ public:
     virtual Number abs() const;
     virtual Number * clone() const;
 private:
-    static std::pair<Number, Number> divide(const Number &, const Number &);
+    static std::pair<Number, Number> divide(Number, const Number &);
     static void print_rec(std::ostream &, const Number &);
     // static u32 find_digit(const Number &, const Number &);
     std::vector<u32> numbers;
     bool is_negative = false;
+    virtual Number operator >> (u32) const;
+    virtual Number & operator >>= (u32);
 };
