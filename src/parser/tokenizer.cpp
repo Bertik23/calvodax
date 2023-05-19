@@ -29,6 +29,11 @@ std::list<Token> tokenize(std::istream & is){
     return out;
 }
 
+std::list<Token> tokenize(const std::string & input){
+    std::stringstream ss(input);
+    return tokenize(ss);
+}
+
 std::ostream & operator << (std::ostream & os, const Token & t){
     return os << "Token(" << t.type << ", " << t.value << ")";
 }

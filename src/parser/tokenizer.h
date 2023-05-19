@@ -22,5 +22,6 @@ struct Token{
 };
 
 std::list<Token> tokenize(std::istream &);
+std::list<Token> tokenize(const std::string &);
 
 std::ostream & operator << (std::ostream & os, const Token & t);
