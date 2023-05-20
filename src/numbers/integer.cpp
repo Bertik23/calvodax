@@ -261,7 +261,7 @@ std::pair<Number,Number> Number::divide (Number upper, const Number & lower) {
     
     std::vector<u32> out_digits;
 
-    while (upper > lower){
+    while (upper >= lower){
         for (
             usize i = upper.numbers.size() - 1;
             Number(top_digits) < lower && top_digits.size() != upper.numbers.size();
