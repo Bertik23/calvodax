@@ -1,7 +1,7 @@
 #include <cassert>
 #include <iostream>
 
-#include "numbers/number.h"
+#include "numbers/integer.h"
 #include "parser/tokenizer.h"
 #include "parser/parser.h"
 #include "utils/exceptions.h"
@@ -44,7 +44,7 @@ int main(){
         }
 
         // dbg(*ast);
-        shared_ptr<Number> eval;
+        shared_ptr<Integer> eval;
         try {
             eval = ast->eval();
             cout << "<<< " << *eval << endl;
@@ -59,6 +59,7 @@ int main(){
 
 
     return 0;
+    #ifdef TEST
     //Number a((1LL << 31) - 1);
     Number b(20);
 
@@ -120,4 +121,5 @@ int main(){
     cout << Number(100) / Number(10) << endl;
 
     cout << Number(1234) << endl;
+    #endif
 }

@@ -6,6 +6,7 @@
 
 #include "../utils/exceptions.h"
 #include "../utils/utils.h"
+//#include "../numbers/integer.h"
 
 
 std::unordered_map<std::string, i32> OP_PRECEDENSE {
@@ -18,13 +19,13 @@ std::unordered_map<std::string, i32> OP_PRECEDENSE {
     {">", 5},
 };
 
-static std::unordered_map<std::string, std::shared_ptr<Number>> VARIABLE_MAP;
+static std::unordered_map<std::string, std::shared_ptr<Integer>> VARIABLE_MAP;
 static std::unordered_map<
     std::string,
-    std::function<std::shared_ptr<Number>(std::shared_ptr<Number>)>
-> FUNCTION_MAP {{"factorial", [](std::shared_ptr<Number> in){
-    std::shared_ptr<Number> out(new Number(1));
-    for (Number i(2); i <= *in; i+=1){
+    std::function<std::shared_ptr<Integer>(std::shared_ptr<Integer>)>
+> FUNCTION_MAP {{"factorial", [](std::shared_ptr<Integer> in){
+    std::shared_ptr<Integer> out(new Integer(1));
+    for (Integer i(2); i <= *in; i+=1){
         *out *= i;
     }
     return out;
@@ -33,8 +34,8 @@ static std::unordered_map<
 // -----------------------------------------------------------------------------
 // CodeBlock
 
-std::shared_ptr<Number> CodeBlock::eval() const {
-    if (expresions.size() == 0) return std::shared_ptr<Number>(new Number());
+std::shared_ptr<Integer> CodeBlock::eval() const {
+    if (expresions.size() == 0) return std::shared_ptr<Integer>(new Integer());
 
     for (auto it = expresions.begin(); it != expresions.end()-1; ++it){
         (*(*it)).eval();
@@ -64,7 +65,7 @@ void CodeBlock::add_expr(std::shared_ptr<ASTNode> ast){
 
 Function::Function(const std::string & name): CodeBlock(), name(name){};
 
-std::shared_ptr<Number> Function::eval() const {
+std::shared_ptr<Integer> Function::eval() const {
     auto f = FUNCTION_MAP.find(name);
     if (f == FUNCTION_MAP.end()){
         throw text_error("Undefined function: " + name);
@@ -129,9 +130,9 @@ UnOp::UnOp(const ASTNode & arg): arg(arg.clone()){}
 // -----------------------------------------------------------------------------
 // Value
 
-Value::Value(const std::string & num): value(new Number(num)) {};
+Value::Value(const std::string & num): value(new Integer(num)) {};
 
-std::shared_ptr<Number> Value::eval() const {
+std::shared_ptr<Integer> Value::eval() const {
     return value;
 }
 
@@ -152,9 +153,9 @@ Var::Var(const std::string & str): name(str) {}
 
 Var::~Var() = default;
 
-std::shared_ptr<Number> Var::eval() const {
+std::shared_ptr<Integer> Var::eval() const {
     return VARIABLE_MAP.emplace(
-        name, std::shared_ptr<Number>(new Number(0))
+        name, std::shared_ptr<Integer>(new Integer(0))
     ).first->second;
 }
 
@@ -169,8 +170,8 @@ Var * Var::clone() const {
 // -----------------------------------------------------------------------------
 // PlusBinOp
 
-std::shared_ptr<Number> PlusBinOp::eval() const{
-    return std::shared_ptr<Number>((*lhs->eval() + *rhs->eval()).clone());
+std::shared_ptr<Integer> PlusBinOp::eval() const{
+    return std::shared_ptr<Integer>((*lhs->eval() + *rhs->eval()).clone());
 }
 
 PlusBinOp * PlusBinOp::clone() const{
@@ -184,8 +185,8 @@ void PlusBinOp::print(std::ostream & os) const {
 // -----------------------------------------------------------------------------
 // MinusBinOp
 
-std::shared_ptr<Number> MinusBinOp::eval() const{
-    return std::shared_ptr<Number>((*lhs->eval() - *rhs->eval()).clone());
+std::shared_ptr<Integer> MinusBinOp::eval() const{
+    return std::shared_ptr<Integer>((*lhs->eval() - *rhs->eval()).clone());
 }
 
 MinusBinOp * MinusBinOp::clone() const{
@@ -199,9 +200,9 @@ void MinusBinOp::print(std::ostream & os) const {
 // -----------------------------------------------------------------------------
 // TimesBinOp
 
-std::shared_ptr<Number> TimesBinOp::eval() const{
+std::shared_ptr<Integer> TimesBinOp::eval() const{
     //std::cerr << "Times" << std::endl; 
-    auto out = std::shared_ptr<Number>((*lhs->eval() * *rhs->eval()).clone());
+    auto out = std::shared_ptr<Integer>((*lhs->eval() * *rhs->eval()).clone());
     //std::cerr << "Times end" << std::endl;
     return out;
 }
@@ -217,8 +218,8 @@ void TimesBinOp::print(std::ostream & os) const {
 // -----------------------------------------------------------------------------
 // DivideBinOp
 
-std::shared_ptr<Number> DivideBinOp::eval() const{
-    return std::shared_ptr<Number>((*lhs->eval() / *rhs->eval()).clone());
+std::shared_ptr<Integer> DivideBinOp::eval() const{
+    return std::shared_ptr<Integer>((*lhs->eval() / *rhs->eval()).clone());
 }
 
 void DivideBinOp::print(std::ostream & os) const {
@@ -236,7 +237,7 @@ AsignBinOp * AsignBinOp::clone() const {
     return new AsignBinOp(*this);
 }
 
-std::shared_ptr<Number> AsignBinOp::eval() const {
+std::shared_ptr<Integer> AsignBinOp::eval() const {
     auto var = lhs->eval();
     *var = *rhs->eval();
     return var;
