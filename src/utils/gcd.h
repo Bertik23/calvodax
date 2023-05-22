@@ -1,3 +1,3 @@
-//#include "../numbers/integer.h"
+#include "../numbers/integer.h"
 
-//Integer gcd(const Integer & a, const Integer & b);
+Integer gcd(const Integer & a, const Integer & b);

@@ -1,38 +1,35 @@
 #pragma once
 
-#ifdef INTEGER
-
 #include "integer.h"
 
-class Rational : public Number {
+class Rational {
 public:
     Rational(Integer num, Integer denom = Integer(1));
-    virtual Rational operator + (const Rational &) const;
-    virtual Rational operator - (const Rational &) const;
-    virtual Rational operator * (const Rational &) const;
-    virtual Rational operator - () const;
-    virtual Rational operator / (const Rational &) const;
-    virtual Rational operator % (const Rational &) const;
-    //virtual Rational operator ^ (const Rational Number &) const;
-    //virtual Rational operator | (const Rational Number &) const;
-    //virtual Rational operator & (const Rational Number &) const;
-    virtual bool operator < (const Rational &) const;
-    virtual bool operator <= (const Rational &) const;
-    virtual bool operator > (const Rational &) const;
-    virtual bool operator >= (const Rational &) const;
-    virtual bool operator == (const Rational &) const;
-    virtual Rational & operator += (const Rational &);
-    virtual Rational & operator -= (const Rational &);
-    virtual Rational & operator *= (const Rational &);
-    virtual Rational & operator /= (const Rational &);
-    virtual Rational & operator %= (const Rational &);
-    //virtual Rational Number & operator ^= (const Rational Number &);
-    //virtual Rational Number & operator |= (const Rational Number &);
-    //virtual Rational Number & operator &= (const Rational Number &);
+    Rational operator + (const Rational &) const;
+    Rational operator - (const Rational &) const;
+    Rational operator * (const Rational &) const;
+    //Rational operator - () const;
+    Rational operator / (const Rational &) const;
+    //Rational operator % (const Rational &) const;
+    //Rational operator ^ (const Rational Number &) const;
+    //Rational operator | (const Rational Number &) const;
+    //Rational operator & (const Rational Number &) const;
+    bool operator < (const Rational &) const;
+    bool operator <= (const Rational &) const;
+    bool operator > (const Rational &) const;
+    bool operator >= (const Rational &) const;
+    bool operator == (const Rational &) const;
+    Rational & operator += (const Rational &);
+    Rational & operator -= (const Rational &);
+    Rational & operator *= (const Rational &);
+    Rational & operator /= (const Rational &);
+    //Rational & operator %= (const Rational &);
+    //Rational Number & operator ^= (const Rational Number &);
+    //Rational Number & operator |= (const Rational Number &);
+    //Rational Number & operator &= (const Rational Number &);
+    friend std::ostream & operator << (std::ostream &, const Rational &);
 private:
     void simplify();
     Integer numerator; // The upper number
     Integer denominator; // The lower number
 };
-
-#endif
