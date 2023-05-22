@@ -3,12 +3,23 @@
 #include <cmath>
 #include <iomanip>
 
+#define DEC
+
+void remove_leading_zeros(std::vector<u32> & arr){
+    while (arr.size() > 1 && !arr.back()){
+        arr.pop_back();
+    }
+}
 
 Number::Number(): numbers(), is_negative(false){};
 
 Number::Number(i32 i)
     : numbers{(u32) std::abs(i)},
       is_negative(i < 0){}
+
+Number::Number(u32 i)
+    : numbers{i},
+      is_negative(false){}
 
 Number::~Number() = default;
 
@@ -18,9 +29,13 @@ Number & Number::operator = (const Number &) = default;
 Number & Number::operator = (Number &&) = default;
 
 Number::Number(const std::vector<u32> & v, bool is_negative = false)
-  : numbers(v), is_negative(is_negative) {}
+  : numbers(v), is_negative(is_negative) {
+    remove_leading_zeros(numbers);
+  }
 Number::Number(std::vector<u32> && v, bool is_negative = false)
-  : numbers(std::move(v)), is_negative(is_negative) {}
+  : numbers(std::move(v)), is_negative(is_negative) {
+    remove_leading_zeros(numbers);
+  }
 
 Number & Number::operator += (const Number & other){
     if (other.is_negative ^ is_negative) return operator -=(-other);
@@ -58,6 +73,9 @@ Number & Number::operator += (const Number & other){
     while(i < other.numbers.size()){
         numbers.push_back(other.numbers[i++]);
     }
+
+    remove_leading_zeros(numbers);
+
     return *this;
 }
 
@@ -77,14 +95,22 @@ void Number::print(std::ostream & os) const {
     if (is_negative){
         os << "-";
     }
-    // Hex
+    #ifdef HEX
     os << std::hex;
+    usize i = 0;
     for (auto it = numbers.rbegin(); it != numbers.rend(); ++it){
+        if (i) os << std::setw(8) << std::setfill('0');
+        //if (i || *it != 0) ++i;
+        //else continue;
         os << /* std::setw(8) << */ *it;
     }
     return;
+    #endif // HEX
+
+    #ifdef DEC
     // Decimal
     print_rec(os, *this);
+    #endif // DEC
 }
 
 void Number::print_rec(std::ostream & os, const Number & x){
@@ -103,7 +129,6 @@ void Number::print_rec(std::ostream & os, const Number & x){
 }
 
 Number & Number::operator *= (const Number & other){
-    usize i = 0;
     u32 cary = 0;
     is_negative = is_negative ^ other.is_negative;
     if (is_zero() || other.is_zero()){
@@ -111,29 +136,42 @@ Number & Number::operator *= (const Number & other){
         numbers = {0};
         return *this;
     }
-    std::vector<u32> caries{0};
-    for (;
-         i < std::min(numbers.size(), other.numbers.size());
-        ++i
+    Number out{0};
+    for (usize i = 0;
+         i < numbers.size();
+         ++i
     ){
-        // auto prev = numbers[i];
-        u64 o = (u64)numbers[i] * (u64)other.numbers[i];
+        std::vector<u32> caries{0};
+        std::vector<u32> o_vec{};
+        for (usize j = 0; j < i; ++j){
+            o_vec.push_back(0);
+            caries.push_back(0);
+        }
+        for (usize j = 0;
+            j < other.numbers.size();
+            ++j
+        ){
+            // auto prev = numbers[i];
+            u64 o = (u64)other.numbers[j] * (u64)numbers[i];
 
-        // std::cout << std::setw(16) << std::hex << o << std::endl;
-        // std::cout << std::setw(16) << (o & (((u64)1<<31) - 1)) << std::endl;
-        // std::cout << std::setw(16) << (o >> 32) << std::endl;
+            // std::cout << std::setw(16) << std::hex << o << std::endl;
+            // std::cout << std::setw(16) << (o & (((u64)1<<31) - 1)) << std::endl;
+            // std::cout << std::setw(16) << (o >> 32) << std::endl;
 
-        // std::cout << std::dec;
+            // std::cout << std::dec;
 
-        numbers[i] = o & (((u64)1<<33) - 1);
-        cary = o >> 32;
-        caries.push_back(cary);
-        // if (numbers[i] < prev){
-        //     cary = 1;
-        // } else cary = 0;
+            o_vec.push_back(o & (((u64)1<<33) - 1));
+            cary = o >> 32;
+            caries.push_back(cary);
+            // if (numbers[i] < prev){
+            //     cary = 1;
+            // } else cary = 0;
+        }
+        out += caries;
+        out += o_vec;
     }
     // std::cout << "Number: " << Number(caries) << std::endl;
-    *this += Number(std::move(caries));
+    *this = std::move(out); // Number(std::move(caries));
     return *this;
 }
 
@@ -159,6 +197,14 @@ bool Number::operator < (const Number & other) const {
             return false ^ xr;
         } else if (i >= numbers.size() && other.numbers[i])
             return true ^ xr;
+        else if (i < numbers.size() && i < other.numbers.size()
+            && numbers[i] < other.numbers[i]
+        ){
+            return true ^ xr;
+        } else if (i < numbers.size() && i < other.numbers.size()
+            && numbers[i] > other.numbers[i]
+        )
+            return false ^ xr;
     }
     if (numbers.size() == 0)
         return (0 < other.numbers[0]) ^ xr;
@@ -179,7 +225,7 @@ bool Number::operator <= (const Number & other) const {
 
 bool Number::operator == (const Number & other) const {
     if (is_negative != other.is_negative) return false;
-    if (numbers.size() != other.numbers.size()) return false;
+    // if (numbers.size() != other.numbers.size()) return false;
     for (usize i = 0; i < numbers.size(); ++i){
         if (numbers[i] != other.numbers[i]) return false;
     }
@@ -206,6 +252,9 @@ Number & Number::operator-=(const Number & other) {
         }
         result.push_back(diff);
     }
+
+    remove_leading_zeros(result);
+
     *this = Number(result, is_negative ^ swap);
     return *this;
 }
@@ -244,6 +293,7 @@ u32 find_digit(const Number & a, const Number & b){
     u32 step = digit;
     while (!(b * digit <= a && b*(digit+1) > a)){
         step >>= 1;
+        if (!step) step = 1;
         if (b * digit > a){
             digit -= step;
         } else digit += step;
@@ -257,11 +307,11 @@ std::pair<Number,Number> Number::divide (Number upper, const Number & lower) {
     if (lower.is_zero()) throw std::logic_error("division by zero");
 
 
-    std::vector<u32> top_digits;
     
     std::vector<u32> out_digits;
 
     while (upper >= lower){
+        std::vector<u32> top_digits;
         for (
             usize i = upper.numbers.size() - 1;
             Number(top_digits) < lower && top_digits.size() != upper.numbers.size();
@@ -272,10 +322,12 @@ std::pair<Number,Number> Number::divide (Number upper, const Number & lower) {
         u32 digit = find_digit(top_digits, lower);
         std::vector<u32> greater{1};
         for (usize i = 0; i < upper.numbers.size() - top_digits.size(); ++i)
-            greater.push_back(0);
+            greater.emplace(greater.begin(), 0);
         upper -= (lower * digit * greater);
         out_digits.insert(out_digits.begin(), digit);
     }
+
+    remove_leading_zeros(out_digits);
 
     return std::make_pair<Number, Number>(Number(out_digits), std::move(upper));
 
@@ -324,6 +376,11 @@ Number & Number::operator>>=(u32 shift) {
         u64 tmp = numbers[i] | ((u64)numbers[i+1] << 32);
         tmp >>= shift;
         numbers[i] = tmp;
+    }
+
+    // Remove leading zeros
+    while (numbers.size()-1 && !numbers.back()){
+        numbers.pop_back();
     }
     return *this;
 }

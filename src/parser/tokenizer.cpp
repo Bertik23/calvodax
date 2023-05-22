@@ -2,6 +2,8 @@
 
 #include <regex>
 
+#include "../utils/exceptions.h"
+
 std::list<Token> tokenize(std::istream & is){
     std::list<Token> out;
 
@@ -22,8 +24,11 @@ std::list<Token> tokenize(std::istream & is){
         out.emplace_back(TokenType::Operator, s);
     else if (std::regex_match(s, std::regex(";*")))
         out.emplace_back(TokenType::Delim);
+    else if (s == ","){
+        out.emplace_back(TokenType::Separator);
+    }
     else
-        throw std::logic_error("Syntax error");
+        throw syntax_error("Unrecognised token: " + s);
 
     out.splice(out.end(), tokenize(is));
     return out;

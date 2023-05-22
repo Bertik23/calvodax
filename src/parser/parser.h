@@ -3,24 +3,19 @@
 #include <unordered_map>
 #include <string>
 #include <list>
+#include <memory>
 
 #include "../typedefs.h"
 #include "../numbers/number.h"
 #include "tokenizer.h"
-#include "../utils/defaut_ptr.h"
+#include "../utils/default_s_ptr.h"
 
-static std::unordered_map<std::string, i32> OP_PRECEDENSE {
-    {"=", 1},
-    {"+", 10},
-    {"-", 10},
-    {"*", 20},
-    {"/", 20}
-};
+extern std::unordered_map<std::string, i32> OP_PRECEDENSE;
 
 class ASTNode{
 public:
     virtual ~ASTNode() = default;
-    virtual Number * eval() const = 0;
+    virtual std::shared_ptr<Number> eval() const = 0;
     virtual ASTNode * clone() const = 0;
     virtual void print(std::ostream &) const = 0;
 };
@@ -29,51 +24,61 @@ class CodeBlock : public ASTNode {
 public:
     CodeBlock() = default;
     ~CodeBlock() override = default;
-    Number * eval() const override;
+    std::shared_ptr<Number> eval() const override;
     CodeBlock * clone() const override;
     void print(std::ostream &) const override;   
-    void add_expr(ASTNode *);
+    void add_expr(std::shared_ptr<ASTNode>);
 protected:
-    std::vector<default_ptr<ASTNode>> expresions;
+    std::vector<std::shared_ptr<ASTNode>> expresions;
+};
+
+class Function : public CodeBlock {
+public:
+    Function(const std::string &);
+    std::shared_ptr<Number> eval() const override;
+    Function * clone() const override;
+    void print(std::ostream &) const override;
+protected:
+    std::string name;
 };
 
 class BinOp : public ASTNode{
 public:
     BinOp(const ASTNode & lhs, const ASTNode & rhs);
-    BinOp(const BinOp &);
-    BinOp & operator = (const BinOp &);
-    ~BinOp() override;
+    // BinOp(const BinOp &);
+    // BinOp & operator = (const BinOp &);
+    // ~BinOp() override;
 protected:
-    ASTNode * lhs;
-    ASTNode * rhs;
+    std::shared_ptr<ASTNode> lhs;
+    std::shared_ptr<ASTNode> rhs;
 };
 
 class UnOp : public ASTNode{
 public:
     UnOp(const ASTNode & arg);
-    ~UnOp() override;
-    UnOp(const UnOp &);
-    UnOp & operator = (const UnOp &);
+    // ~UnOp() override;
+    // UnOp(const UnOp &);
+    // UnOp & operator = (const UnOp &);
 protected:
-    ASTNode * arg;
+    std::shared_ptr<ASTNode> arg;
 };
 
 class Value : public ASTNode{
 public:
     Value(const std::string &);
     ~Value() override;
-    Number * eval() const override;
+    std::shared_ptr<Number> eval() const override;
     Value * clone() const override;
     void print(std::ostream &) const override;
 protected:
-    default_ptr<Number> value;
+    std::shared_ptr<Number> value;
 };
 
 class Var : public ASTNode{
 public:
     Var(const std::string &);
     ~Var() override;
-    Number * eval() const override;
+    std::shared_ptr<Number> eval() const override;
     Var * clone() const override;
     void print(std::ostream &) const override;
 private:
@@ -83,7 +88,7 @@ private:
 class PlusBinOp: public BinOp{
 public:
     using BinOp::BinOp;
-    Number * eval() const override;
+    std::shared_ptr<Number> eval() const override;
     PlusBinOp * clone() const override;
     void print(std::ostream &) const override;
 };
@@ -91,7 +96,7 @@ public:
 class MinusBinOp: public BinOp{
 public:
     using BinOp::BinOp;
-    Number * eval() const override;
+    std::shared_ptr<Number> eval() const override;
     MinusBinOp * clone() const override;
     void print(std::ostream &) const override;
 };
@@ -99,7 +104,7 @@ public:
 class TimesBinOp: public BinOp{
 public:
     using BinOp::BinOp;
-    Number * eval() const override;
+    std::shared_ptr<Number> eval() const override;
     TimesBinOp * clone() const override;
     void print(std::ostream &) const override;
 };
@@ -107,7 +112,7 @@ public:
 class DivideBinOp: public BinOp{
 public:
     using BinOp::BinOp;
-    Number * eval() const override;
+    std::shared_ptr<Number> eval() const override;
     DivideBinOp * clone() const override;
     void print(std::ostream &) const override;
 };
@@ -115,16 +120,17 @@ public:
 class AsignBinOp: public BinOp{
 public:
     using BinOp::BinOp;
-    Number * eval() const override;
+    std::shared_ptr<Number> eval() const override;
     AsignBinOp * clone() const override;
     void print(std::ostream &) const override;
 };
 
-ASTNode * parse(std::list<Token> &);
-ASTNode * parse_expr(std::list<Token> &);
-ASTNode * parse_paren(std::list<Token> &);
-ASTNode * parse_primary(std::list<Token> &);
-ASTNode * parse_ident(std::list<Token> &);
-ASTNode * parse_bin_op_rhs(std::list<Token> &, ASTNode *, i32);
+std::shared_ptr<ASTNode> parse(std::list<Token> &);
+std::shared_ptr<ASTNode> parse_expr(std::list<Token> &);
+std::shared_ptr<ASTNode> parse_paren(std::list<Token> &);
+std::shared_ptr<ASTNode> parse_primary(std::list<Token> &);
+std::shared_ptr<ASTNode> parse_ident(std::list<Token> &);
+std::shared_ptr<ASTNode> parse_function(std::list<Token> &);
+std::shared_ptr<ASTNode> parse_bin_op_rhs(std::list<Token> &, ASTNode *, i32);
 
 std::ostream & operator << (std::ostream &, const ASTNode &);

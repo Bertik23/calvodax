@@ -22,40 +22,52 @@ int main(){
     while (cin){
         cout << ">>> ";
         
-        string line;
-        std::getline(cin, line);
-        auto tokens = tokenize(line);
-        for (const auto & a: tokens){
-            cout << a << endl;
-        }
-
-        cout << "---------------\n";
-        ASTNode * ast;
+        shared_ptr<ASTNode> ast;
         try {
+            string line;
+            std::getline(cin, line);
+            auto tokens = tokenize(line);
+            // for (const auto & a: tokens){
+            //     cerr << a << endl;
+            // }
+
+            // cerr << "---------------\n";
             ast = parse(static_cast<std::list<Token>&>(tokens));
         } catch (syntax_error & e){
             cout << "Syntax error: " + string(e.what()) << endl;
             continue;
         } catch (exit_exception &){
+            // delete ast;
             return 0;
+        } catch (text_error & e){
+            cout << "Error: " + string(e.what()) << endl;
         }
 
-        dbg(*ast);
-
-        cout << "<<< " << *ast->eval() << endl;
+        // dbg(*ast);
+        shared_ptr<Number> eval;
+        try {
+            eval = ast->eval();
+            cout << "<<< " << *eval << endl;
+        } catch (text_error & e){
+            cout << "Error: " + string(e.what()) << endl;
+        } catch(...){
+            throw;
+        }
+        //delete eval;
+        //delete ast;
     }
 
 
     return 0;
-    Number a((1LL << 31) - 1);
+    //Number a((1LL << 31) - 1);
     Number b(20);
 
-    cout << a << endl;
+    //cout << a << endl;
 
-    cout << a + a + a + a + a + a + a + a << endl;
+    //cout << a + a + a + a + a + a + a + a << endl;
 
-    cout << "2^31 - 1 × 2^31 - 1" << endl;
-    cout << a * a << endl;
+    //cout << "2^31 - 1 × 2^31 - 1" << endl;
+    //cout << a * a << endl;
 
     Number c(0);
     Number d(-1);

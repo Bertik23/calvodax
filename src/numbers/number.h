@@ -10,6 +10,7 @@ class Number{
 public:
     Number();
     Number(i32);
+    Number(u32);
     Number(const std::vector<u32> &, bool);
     Number(std::vector<u32> &&, bool);
     Number(const Number &);

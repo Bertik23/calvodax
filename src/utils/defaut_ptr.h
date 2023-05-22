@@ -18,8 +18,6 @@ protected:
     T * ptr;
 };
 
-#include "defaut_ptr.h"
-
 template<typename T>
 default_ptr<T>::default_ptr(): ptr(new T) {};
 

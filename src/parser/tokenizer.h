@@ -10,7 +10,8 @@ enum class TokenType{
     RParen,
     Number,
     Operator,
-    Delim
+    Delim,
+    Separator
 };
 
 std::ostream & operator << (std::ostream & os, const TokenType & t);
