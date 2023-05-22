@@ -368,6 +368,7 @@ std::shared_ptr<ASTNode> parse_primary(std::list<Token> & token_stream){
         token_stream.pop_front();
         return parse_primary(token_stream);
     }
+    throw syntax_error("Unexpected token: " + to_string(token_stream.front()));
 }
 
 std::shared_ptr<ASTNode> parse_expr(std::list<Token> & token_stream){
