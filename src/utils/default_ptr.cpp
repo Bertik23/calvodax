@@ -1,1 +1,0 @@
-#include "defaut_ptr.h"

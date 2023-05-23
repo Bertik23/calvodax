@@ -9,7 +9,6 @@
 #include "../numbers/integer.h"
 #include "../numbers/rational.h"
 #include "tokenizer.h"
-#include "../utils/default_s_ptr.h"
 
 extern std::unordered_map<std::string, i32> OP_PRECEDENSE;
 
@@ -45,7 +44,7 @@ private:
 
 class CodeBlock : public ASTNode {
 public:
-    CodeBlock() = default;
+    CodeBlock();
     ~CodeBlock() override = default;
     std::shared_ptr<Rational> eval() const override;
     CodeBlock * clone() const override;
