@@ -14,6 +14,7 @@ public:
     Integer() = default;
     Integer(const std::string &);
     Integer(i32);
+    Integer(Digits);
     ~Integer() = default;
     //Integer & operator = (const Integer &);
     //Integer & operator = (Integer &&);
@@ -48,6 +49,8 @@ public:
     bool is_zero() const;
     //Integer abs() const;
     Integer * clone() const;
+    Integer power(const Integer &) const;
+    static std::pair<Integer, Integer> divide(const Integer &, const Integer &);
 protected:
     std::shared_ptr<NumberRepresentation> number;
 };
