@@ -29,6 +29,12 @@ public:
     //Rational Number & operator &= (const Rational Number &);
     friend std::ostream & operator << (std::ostream &, const Rational &);
     Rational * clone() const;
+    Rational power(const Rational &) const;
+    Rational floor() const;
+    Rational ceil() const;
+    Rational round() const;
+    const Integer & num() const;
+    const Integer & denom() const;
 private:
     void simplify();
     Integer numerator; // The upper number

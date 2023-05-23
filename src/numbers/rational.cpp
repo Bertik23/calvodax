@@ -1,4 +1,5 @@
 #include "rational.h"
+#include "../utils/exceptions.h"
 
 #include "../utils/gcd.h"
 
@@ -87,4 +88,34 @@ std::ostream & operator << (std::ostream & os, const Rational & r){
 
 Rational * Rational::clone() const{
     return new Rational(*this);
+}
+
+Rational Rational::power(const Rational & other) const {
+    if (!(other.denominator == Integer(1)))
+        throw text_error("Exponent must be an integer.");
+    Rational out(0);
+    out.numerator = numerator.power(other.numerator);
+    out.denominator = denominator.power(other.numerator);
+    return out;
+}
+
+const Integer & Rational::num() const {
+    return numerator;
+}
+
+const Integer & Rational::denom() const {
+    return denominator;
+}
+
+Rational Rational::floor() const {
+    return Rational(numerator / denominator);
+}
+
+Rational Rational::ceil() const {
+    return Rational((numerator + denominator) / denominator);
+}
+
+Rational Rational::round() const {
+    auto div = Integer::divide(numerator, denominator);
+    return (Rational(div.second) >= Rational(denominator, 2)) ? ceil() : div.first; 
 }
