@@ -50,8 +50,8 @@ public:
     virtual bool is_zero() const;
     virtual Digits abs() const;
     virtual Digits * clone() const;
-private:
     static std::pair<Digits, Digits> divide(Digits, const Digits &);
+private:
     static void print_rec(std::ostream &, const Digits &);
     // static u32 find_digit(const Digits &, const Digits &);
     std::vector<u32> numbers;

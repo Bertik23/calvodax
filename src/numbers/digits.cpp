@@ -303,7 +303,9 @@ std::pair<Digits,Digits> Digits::divide (Digits upper, const Digits & lower) {
 
     if (lower.is_zero()) throw std::logic_error("division by zero");
 
-
+    if (lower == 2){
+        return std::pair<Digits, Digits>(upper >> 1, upper.numbers[0] & 1);
+    }
     
     std::vector<u32> out_digits;
 
@@ -370,14 +372,12 @@ Digits Digits::operator>>(u32 shift) const{
 Digits & Digits::operator>>=(u32 shift) {
     if (shift > 32) exit(1);
     for (usize i = 0; i < numbers.size() - 1; ++i){
-        u64 tmp = numbers[i] | ((u64)numbers[i+1] << 32);
+        u64 tmp = (u64)numbers[i] | ((u64)numbers[i+1] << 32);
         tmp >>= shift;
         numbers[i] = tmp;
     }
+    numbers.back() >>= shift;
 
-    // Remove leading zeros
-    while (numbers.size()-1 && !numbers.back()){
-        numbers.pop_back();
-    }
+    remove_leading_zeros(numbers);
     return *this;
 }
