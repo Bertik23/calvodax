@@ -2,26 +2,31 @@
 
 Sparse::Sparse(const Digits & digits){
     auto bits = digits.as_bits();
+    usize i = 0;
     for (
-        usize k = 0, i = bits.size()-1;
-        k < bits.size();
-        ++k, i = bits.size() - 1 - k
+        auto it = bits.begin();
+        it != bits.end();
+        ++it
     ){
-        if (bits[i]){
+        auto bit = *it;
+        if (bit){
             ones.push_back(i);
         }
+        ++i;
     }
 }
 
 Digits Sparse::get_digits() const {
     Digits out(0);
     for (auto & o: ones){
+        std::cerr << o << std::endl;
         out += Digits(2).power(o);
     }
     return out;
 }
 
 void Sparse::print(std::ostream & os) const {
+    if (!ones.size()) os << "0";
     bool is_first = true;
     for (auto & o: ones){
         if (!is_first)

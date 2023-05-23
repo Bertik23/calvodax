@@ -391,6 +391,11 @@ Digits Digits::from_dec_str(const std::string & str){
     Digits out(0);
     Digits order(1);
     for (auto it = str.rbegin(); it != str.rend(); ++it){
+        if (*it == '+') continue;
+        else if (*it == '-'){
+            out *= -1;
+            continue;
+        }
         out += order * (*it - '0');
         order *= 10;
     }
@@ -399,7 +404,7 @@ Digits Digits::from_dec_str(const std::string & str){
 
 std::vector<bool> Digits::as_bits() const {
     std::vector<bool> out;
-    for(auto it = numbers.rbegin(); it != numbers.rend(); ++it){
+    for(auto it = numbers.begin(); it != numbers.end(); ++it){
         auto bits = std::bitset<32>(*it);
         for (usize i = 0; i < 32; ++i){
             out.push_back(bits[i]);
