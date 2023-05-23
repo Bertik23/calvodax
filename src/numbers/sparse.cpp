@@ -1,6 +1,6 @@
 #include "sparse.h"
 
-Sparse::Sparse(const Digits & digits){
+Sparse::Sparse(const Digits & digits): is_negative(digits.negative()){
     auto bits = digits.as_bits();
     usize i = 0;
     for (
@@ -22,11 +22,16 @@ Digits Sparse::get_digits() const {
         std::cerr << o << std::endl;
         out += Digits(2).power(o);
     }
+    if (is_negative) return -out;
     return out;
 }
 
 void Sparse::print(std::ostream & os) const {
-    if (!ones.size()) os << "0";
+    if (!ones.size()){
+        os << "0";
+        return;
+    }
+    if (is_negative) os << "-";
     bool is_first = true;
     for (auto & o: ones){
         if (!is_first)

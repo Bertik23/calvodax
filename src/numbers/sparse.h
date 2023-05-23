@@ -14,4 +14,5 @@ public:
     usize get_size() const override;
 protected:
     std::vector<usize> ones;
+    bool is_negative;
 };
