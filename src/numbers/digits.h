@@ -56,6 +56,7 @@ public:
     std::vector<bool> as_bits() const;
     Digits power(const Digits &) const;
     usize size() const;
+    bool negative() const;
 private:
     static void print_rec(std::ostream &, const Digits &);
     // static u32 find_digit(const Digits &, const Digits &);
