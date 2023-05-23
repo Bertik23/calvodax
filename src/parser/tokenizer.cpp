@@ -3,6 +3,7 @@
 #include <regex>
 
 #include "../utils/exceptions.h"
+#include "../typedefs.h"
 
 std::list<Token> tokenize(std::istream & is){
     std::list<Token> out;
@@ -59,6 +60,6 @@ std::ostream & operator << (std::ostream & os, const TokenType & t){
         return os << "Delim";
     
     default:
-        return os << "Unknown(" << t << ")";
+        return os << "Unknown(" << (u32) t << ")";
     }
 }

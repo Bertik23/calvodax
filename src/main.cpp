@@ -43,6 +43,7 @@ int main(){
             return 0;
         } catch (text_error & e){
             cout << "Error: " + string(e.what()) << endl;
+            continue;
         }
 
         //dbg(*ast);

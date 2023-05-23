@@ -121,6 +121,8 @@ std::shared_ptr<Rational> Import::eval() const {
         //if (std::filesystem::is_regular_file(f))
             //throw text_error("Can't read from path.");
         std::ifstream ifile(f);
+        if (!ifile.is_open())
+            throw text_error("Couldn't open file " + f.string());
         std::string line;
         try {
             while (ifile){
@@ -133,7 +135,7 @@ std::shared_ptr<Rational> Import::eval() const {
             throw text_error("Invalid save file. " + std::string(e.what()));
         }
         if (ifile.bad()) throw text_error("Couldn't read from path");
-        std::cout << "Succesfully exported to: " << f << std::endl;
+        std::cout << "Succesfully imported from: " << f << std::endl;
         return std::shared_ptr<Rational>(new Rational(0));
     } catch(std::filesystem::filesystem_error & e){
         throw text_error("Can't write to path. " + std::string(e.what()));
@@ -417,7 +419,7 @@ std::shared_ptr<ASTNode> parse_bin_op_rhs(
 std::shared_ptr<ASTNode> parse_paren(std::list<Token> & token_stream){
     std::shared_ptr<ASTNode> expr = parse_expr(token_stream);
     if (token_stream.front().type != TokenType::RParen)
-        throw std::logic_error("Syntax error");
+        throw text_error("Syntax error");
     token_stream.pop_front();
     return expr;
 }
