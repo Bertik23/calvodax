@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <iomanip>
+#include <bitset>
 
 #define HEX
 
@@ -20,6 +21,10 @@ Digits::Digits(i32 i)
 Digits::Digits(u32 i)
     : numbers{i},
       is_negative(false){}
+
+Digits::Digits(u64 i)
+    : numbers{(u32)i, (u32)(i >> 32)},
+      is_negative(false) {};
 
 Digits::~Digits() = default;
 
@@ -380,4 +385,41 @@ Digits & Digits::operator>>=(u32 shift) {
 
     remove_leading_zeros(numbers);
     return *this;
+}
+
+Digits Digits::from_dec_str(const std::string & str){
+    Digits out(0);
+    Digits order(1);
+    for (auto it = str.rbegin(); it != str.rend(); ++it){
+        out += order * (*it - '0');
+        order *= 10;
+    }
+    return out;
+}
+
+std::vector<bool> Digits::as_bits() const {
+    std::vector<bool> out;
+    for(auto it = numbers.rbegin(); it != numbers.rend(); ++it){
+        auto bits = std::bitset<32>(*it);
+        for (usize i = 0; i < 32; ++i){
+            out.push_back(bits[i]);
+        }
+    }
+    return out;
+}
+
+
+Digits Digits::power(const Digits & other) const {
+    if (other.is_zero()) return 1;
+    if (other == 1) return *this;
+    auto div = Digits::divide(other, 2);
+    if (div.second.is_zero()){
+        auto mid = power(div.first);
+        return mid * mid;
+    }
+    return *this * power(other - 1);
+}
+
+usize Digits::size() const {
+    return numbers.size();
 }
