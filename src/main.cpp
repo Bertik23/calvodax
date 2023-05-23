@@ -1,5 +1,6 @@
 #include <cassert>
 #include <iostream>
+#include <iomanip>
 
 #include "numbers/integer.h"
 #include "parser/tokenizer.h"
@@ -19,6 +20,7 @@ void dbg(const T & t){
 }
 
 int main(){
+    cout << hex;
     while (cin){
         cout << ">>> ";
         
@@ -44,11 +46,13 @@ int main(){
         }
 
         // dbg(*ast);
-        shared_ptr<Integer> eval;
+        shared_ptr<Rational> eval;
         try {
             eval = ast->eval();
             cout << "<<< " << *eval << endl;
         } catch (text_error & e){
+            cout << "Error: " + string(e.what()) << endl;
+        } catch (std::logic_error & e){
             cout << "Error: " + string(e.what()) << endl;
         } catch(...){
             throw;
