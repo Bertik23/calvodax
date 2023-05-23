@@ -19,13 +19,13 @@ std::unordered_map<std::string, i32> OP_PRECEDENSE {
     {">", 5},
 };
 
-static std::unordered_map<std::string, std::shared_ptr<Integer>> VARIABLE_MAP;
+static std::unordered_map<std::string, std::shared_ptr<Rational>> VARIABLE_MAP;
 static std::unordered_map<
     std::string,
-    std::function<std::shared_ptr<Integer>(std::shared_ptr<Integer>)>
-> FUNCTION_MAP {{"factorial", [](std::shared_ptr<Integer> in){
-    std::shared_ptr<Integer> out(new Integer(1));
-    for (Integer i(2); i <= *in; i+=1){
+    std::function<std::shared_ptr<Rational>(std::shared_ptr<Rational>)>
+> FUNCTION_MAP {{"factorial", [](std::shared_ptr<Rational> in){
+    std::shared_ptr<Rational> out(new Rational(1));
+    for (Rational i(2); i <= *in; i+=Rational(1)){
         *out *= i;
     }
     return out;
@@ -34,8 +34,8 @@ static std::unordered_map<
 // -----------------------------------------------------------------------------
 // CodeBlock
 
-std::shared_ptr<Integer> CodeBlock::eval() const {
-    if (expresions.size() == 0) return std::shared_ptr<Integer>(new Integer());
+std::shared_ptr<Rational> CodeBlock::eval() const {
+    if (expresions.size() == 0) return std::shared_ptr<Rational>(new Rational(0));
 
     for (auto it = expresions.begin(); it != expresions.end()-1; ++it){
         (*(*it)).eval();
@@ -65,7 +65,7 @@ void CodeBlock::add_expr(std::shared_ptr<ASTNode> ast){
 
 Function::Function(const std::string & name): CodeBlock(), name(name){};
 
-std::shared_ptr<Integer> Function::eval() const {
+std::shared_ptr<Rational> Function::eval() const {
     auto f = FUNCTION_MAP.find(name);
     if (f == FUNCTION_MAP.end()){
         throw text_error("Undefined function: " + name);
@@ -130,9 +130,9 @@ UnOp::UnOp(const ASTNode & arg): arg(arg.clone()){}
 // -----------------------------------------------------------------------------
 // Value
 
-Value::Value(const std::string & num): value(new Integer(num)) {};
+Value::Value(const std::string & num): value(new Rational(num)) {};
 
-std::shared_ptr<Integer> Value::eval() const {
+std::shared_ptr<Rational> Value::eval() const {
     return value;
 }
 
@@ -153,9 +153,9 @@ Var::Var(const std::string & str): name(str) {}
 
 Var::~Var() = default;
 
-std::shared_ptr<Integer> Var::eval() const {
+std::shared_ptr<Rational> Var::eval() const {
     return VARIABLE_MAP.emplace(
-        name, std::shared_ptr<Integer>(new Integer(0))
+        name, std::shared_ptr<Rational>(new Rational(0))
     ).first->second;
 }
 
@@ -170,8 +170,8 @@ Var * Var::clone() const {
 // -----------------------------------------------------------------------------
 // PlusBinOp
 
-std::shared_ptr<Integer> PlusBinOp::eval() const{
-    return std::shared_ptr<Integer>((*lhs->eval() + *rhs->eval()).clone());
+std::shared_ptr<Rational> PlusBinOp::eval() const{
+    return std::shared_ptr<Rational>((*lhs->eval() + *rhs->eval()).clone());
 }
 
 PlusBinOp * PlusBinOp::clone() const{
@@ -185,8 +185,8 @@ void PlusBinOp::print(std::ostream & os) const {
 // -----------------------------------------------------------------------------
 // MinusBinOp
 
-std::shared_ptr<Integer> MinusBinOp::eval() const{
-    return std::shared_ptr<Integer>((*lhs->eval() - *rhs->eval()).clone());
+std::shared_ptr<Rational> MinusBinOp::eval() const{
+    return std::shared_ptr<Rational>((*lhs->eval() - *rhs->eval()).clone());
 }
 
 MinusBinOp * MinusBinOp::clone() const{
@@ -200,9 +200,9 @@ void MinusBinOp::print(std::ostream & os) const {
 // -----------------------------------------------------------------------------
 // TimesBinOp
 
-std::shared_ptr<Integer> TimesBinOp::eval() const{
+std::shared_ptr<Rational> TimesBinOp::eval() const{
     //std::cerr << "Times" << std::endl; 
-    auto out = std::shared_ptr<Integer>((*lhs->eval() * *rhs->eval()).clone());
+    auto out = std::shared_ptr<Rational>((*lhs->eval() * *rhs->eval()).clone());
     //std::cerr << "Times end" << std::endl;
     return out;
 }
@@ -218,8 +218,8 @@ void TimesBinOp::print(std::ostream & os) const {
 // -----------------------------------------------------------------------------
 // DivideBinOp
 
-std::shared_ptr<Integer> DivideBinOp::eval() const{
-    return std::shared_ptr<Integer>((*lhs->eval() / *rhs->eval()).clone());
+std::shared_ptr<Rational> DivideBinOp::eval() const{
+    return std::shared_ptr<Rational>((*lhs->eval() / *rhs->eval()).clone());
 }
 
 void DivideBinOp::print(std::ostream & os) const {
@@ -237,7 +237,7 @@ AsignBinOp * AsignBinOp::clone() const {
     return new AsignBinOp(*this);
 }
 
-std::shared_ptr<Integer> AsignBinOp::eval() const {
+std::shared_ptr<Rational> AsignBinOp::eval() const {
     auto var = lhs->eval();
     *var = *rhs->eval();
     return var;
@@ -347,7 +347,7 @@ std::shared_ptr<ASTNode> parse_function(std::list<Token> & token_stream){
             token_stream.pop_front();
             continue;
         } else {
-            std::cerr << *fun << std::endl;
+            //std::cerr << *fun << std::endl;
             throw syntax_error(
                 "Unexpected token: " + to_string(token_stream.front())
             );
@@ -363,7 +363,7 @@ std::shared_ptr<ASTNode> parse_primary(std::list<Token> & token_stream){
     } else if (token_stream.front().type == TokenType::Number){
         return parse_literal(token_stream);
     } else if (token_stream.front().type == TokenType::Identifier){
-        std::cout << token_stream.front().value << std::endl;
+        //std::cout << token_stream.front().value << std::endl;
         return parse_ident(token_stream);
     } else if (token_stream.front().type == TokenType::Delim){
         token_stream.pop_front();

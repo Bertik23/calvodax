@@ -7,6 +7,7 @@
 
 #include "../typedefs.h"
 #include "../numbers/integer.h"
+#include "../numbers/rational.h"
 #include "tokenizer.h"
 #include "../utils/default_s_ptr.h"
 
@@ -15,7 +16,7 @@ extern std::unordered_map<std::string, i32> OP_PRECEDENSE;
 class ASTNode{
 public:
     virtual ~ASTNode() = default;
-    virtual std::shared_ptr<Integer> eval() const = 0;
+    virtual std::shared_ptr<Rational> eval() const = 0;
     virtual ASTNode * clone() const = 0;
     virtual void print(std::ostream &) const = 0;
 };
@@ -24,7 +25,7 @@ class CodeBlock : public ASTNode {
 public:
     CodeBlock() = default;
     ~CodeBlock() override = default;
-    std::shared_ptr<Integer> eval() const override;
+    std::shared_ptr<Rational> eval() const override;
     CodeBlock * clone() const override;
     void print(std::ostream &) const override;   
     void add_expr(std::shared_ptr<ASTNode>);
@@ -35,7 +36,7 @@ protected:
 class Function : public CodeBlock {
 public:
     Function(const std::string &);
-    std::shared_ptr<Integer> eval() const override;
+    std::shared_ptr<Rational> eval() const override;
     Function * clone() const override;
     void print(std::ostream &) const override;
 protected:
@@ -67,18 +68,18 @@ class Value : public ASTNode{
 public:
     Value(const std::string &);
     ~Value() override;
-    std::shared_ptr<Integer> eval() const override;
+    std::shared_ptr<Rational> eval() const override;
     Value * clone() const override;
     void print(std::ostream &) const override;
 protected:
-    std::shared_ptr<Integer> value;
+    std::shared_ptr<Rational> value;
 };
 
 class Var : public ASTNode{
 public:
     Var(const std::string &);
     ~Var() override;
-    std::shared_ptr<Integer> eval() const override;
+    std::shared_ptr<Rational> eval() const override;
     Var * clone() const override;
     void print(std::ostream &) const override;
 private:
@@ -88,7 +89,7 @@ private:
 class PlusBinOp: public BinOp{
 public:
     using BinOp::BinOp;
-    std::shared_ptr<Integer> eval() const override;
+    std::shared_ptr<Rational> eval() const override;
     PlusBinOp * clone() const override;
     void print(std::ostream &) const override;
 };
@@ -96,7 +97,7 @@ public:
 class MinusBinOp: public BinOp{
 public:
     using BinOp::BinOp;
-    std::shared_ptr<Integer> eval() const override;
+    std::shared_ptr<Rational> eval() const override;
     MinusBinOp * clone() const override;
     void print(std::ostream &) const override;
 };
@@ -104,7 +105,7 @@ public:
 class TimesBinOp: public BinOp{
 public:
     using BinOp::BinOp;
-    std::shared_ptr<Integer> eval() const override;
+    std::shared_ptr<Rational> eval() const override;
     TimesBinOp * clone() const override;
     void print(std::ostream &) const override;
 };
@@ -112,7 +113,7 @@ public:
 class DivideBinOp: public BinOp{
 public:
     using BinOp::BinOp;
-    std::shared_ptr<Integer> eval() const override;
+    std::shared_ptr<Rational> eval() const override;
     DivideBinOp * clone() const override;
     void print(std::ostream &) const override;
 };
@@ -120,7 +121,7 @@ public:
 class AsignBinOp: public BinOp{
 public:
     using BinOp::BinOp;
-    std::shared_ptr<Integer> eval() const override;
+    std::shared_ptr<Rational> eval() const override;
     AsignBinOp * clone() const override;
     void print(std::ostream &) const override;
 };
