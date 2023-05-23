@@ -9,3 +9,7 @@ Digits Dense::get_digits() const {
 void Dense::print(std::ostream & os) const {
     digits.print(os);
 }
+
+usize Dense::get_size() const {
+    return digits.size() * 4;
+}
