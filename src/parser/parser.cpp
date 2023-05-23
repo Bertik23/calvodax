@@ -471,12 +471,16 @@ std::shared_ptr<ASTNode> parse_ident(std::list<Token> & token_stream){
 }
 
 std::shared_ptr<ASTNode> parse_export(std::list<Token> & token_stream){
+    if (token_stream.front().type != TokenType::Identifier)
+        throw syntax_error("Unexpected token: " + to_string(token_stream.front()));
     auto out = std::shared_ptr<Export>(new Export(token_stream.front().value));
     token_stream.pop_front();
     return out;
 }
 
 std::shared_ptr<ASTNode> parse_import(std::list<Token> & token_stream){
+    if (token_stream.front().type != TokenType::Identifier)
+        throw syntax_error("Unexpected token: " + to_string(token_stream.front()));
     auto out = std::shared_ptr<Import>(new Import(token_stream.front().value));
     token_stream.pop_front();
     return out;
