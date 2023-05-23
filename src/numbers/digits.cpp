@@ -131,7 +131,9 @@ void Digits::print_rec(std::ostream & os, const Digits & x){
 
 Digits & Digits::operator *= (const Digits & other){
     u32 cary = 0;
+    //std::cerr << is_negative << " " << other.is_negative << " ";
     is_negative = is_negative ^ other.is_negative;
+    //std::cerr << is_negative << std::endl;
     if (is_zero() || other.is_zero()){
         is_negative = false;
         numbers = {0};
@@ -171,6 +173,7 @@ Digits & Digits::operator *= (const Digits & other){
         out += caries;
         out += o_vec;
     }
+    out.is_negative = is_negative;
     // std::cout << "Digits: " << Digits(caries) << std::endl;
     *this = std::move(out); // Digits(std::move(caries));
     return *this;
@@ -393,7 +396,7 @@ Digits Digits::from_dec_str(const std::string & str){
     for (auto it = str.rbegin(); it != str.rend(); ++it){
         if (*it == '+') continue;
         else if (*it == '-'){
-            out *= -1;
+            out.is_negative = true;
             continue;
         }
         out += order * (*it - '0');
@@ -427,4 +430,8 @@ Digits Digits::power(const Digits & other) const {
 
 usize Digits::size() const {
     return numbers.size();
+}
+
+bool Digits::negative() const {
+    return is_negative;
 }
