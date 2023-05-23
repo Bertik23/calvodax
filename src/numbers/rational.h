@@ -10,7 +10,7 @@ public:
     Rational operator * (const Rational &) const;
     //Rational operator - () const;
     Rational operator / (const Rational &) const;
-    //Rational operator % (const Rational &) const;
+    Rational operator % (const Rational &) const;
     //Rational operator ^ (const Rational Number &) const;
     //Rational operator | (const Rational Number &) const;
     //Rational operator & (const Rational Number &) const;
@@ -23,7 +23,7 @@ public:
     Rational & operator -= (const Rational &);
     Rational & operator *= (const Rational &);
     Rational & operator /= (const Rational &);
-    //Rational & operator %= (const Rational &);
+    Rational & operator %= (const Rational &);
     //Rational Number & operator ^= (const Rational Number &);
     //Rational Number & operator |= (const Rational Number &);
     //Rational Number & operator &= (const Rational Number &);

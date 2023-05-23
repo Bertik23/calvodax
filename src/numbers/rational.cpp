@@ -48,6 +48,13 @@ Rational & Rational::operator /= (const Rational & other){
     return *this;
 }
 
+Rational & Rational::operator %= (const Rational & other){
+    if (!(denominator == 1) || !(other.denominator == 1))
+        throw text_error("Error: Only integers are allowed in modulo.");
+    numerator %= other.numerator;
+    return *this;
+}
+
 Rational Rational::operator + (const Rational & other) const{
     return Rational(*this) += other;
 }
@@ -61,6 +68,9 @@ Rational Rational::operator / (const Rational & other) const{
     return Rational(*this) /= other;
 }
 
+Rational Rational::operator % (const Rational & other) const{
+    return Rational(*this) %= other;
+}
 
 bool Rational::operator <  (const Rational & other) const {
     return numerator * other.denominator < other.numerator * denominator;
