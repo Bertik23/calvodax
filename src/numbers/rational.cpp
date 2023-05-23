@@ -50,7 +50,7 @@ Rational & Rational::operator /= (const Rational & other){
 
 Rational & Rational::operator %= (const Rational & other){
     if (!(denominator == 1) || !(other.denominator == 1))
-        throw text_error("Error: Only integers are allowed in modulo.");
+        throw text_error("Only integers are allowed in modulo.");
     numerator %= other.numerator;
     return *this;
 }
