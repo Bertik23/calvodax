@@ -16,19 +16,18 @@ std::list<Token> tokenize(std::istream & is){
         out.emplace_back(TokenType::LParen);
     else if (s == ")")
         out.emplace_back(TokenType::RParen);
-    else if (std::regex_match(s, std::regex("[a-zA-Z]*")))
-        out.emplace_back(TokenType::Identifier, s);
     else if (std::regex_match(s, std::regex("[0-9]*")))
         out.emplace_back(TokenType::Number, s);
     else if (std::regex_match(s, std::regex("[+\\-*=/%<>]*")))
         out.emplace_back(TokenType::Operator, s);
     else if (std::regex_match(s, std::regex(";*")))
         out.emplace_back(TokenType::Delim);
-    else if (s == ","){
+    else if (s == ",")
         out.emplace_back(TokenType::Separator);
-    }
-    else
-        throw syntax_error("Unrecognised token: " + s);
+    else// if (std::regex_match(s, std::regex("[a-zA-Z]*")))
+        out.emplace_back(TokenType::Identifier, s);
+    //else
+        //throw syntax_error("Unrecognised token: " + s);
 
     out.splice(out.end(), tokenize(is));
     return out;
