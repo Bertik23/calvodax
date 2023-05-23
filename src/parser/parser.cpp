@@ -48,6 +48,8 @@ static std::unordered_map<
 // -----------------------------------------------------------------------------
 // CodeBlock
 
+CodeBlock::CodeBlock(): expresions() {};
+
 std::shared_ptr<Rational> CodeBlock::eval() const {
     if (expresions.size() == 0) return std::shared_ptr<Rational>(new Rational(0));
 

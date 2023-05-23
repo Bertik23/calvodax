@@ -213,7 +213,7 @@ bool Digits::operator < (const Digits & other) const {
     if (numbers.size() == 0)
         return (0 < other.numbers[0]) ^ xr;
     if (other.numbers.size() == 0)
-        return (numbers[0] < 0) ^ xr;
+        return true ^ xr;
     return (numbers[0] < other.numbers[0]) ^ xr;
 }
 

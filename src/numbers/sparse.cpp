@@ -1,6 +1,6 @@
 #include "sparse.h"
 
-Sparse::Sparse(const Digits & digits): is_negative(digits.negative()){
+Sparse::Sparse(const Digits & digits): ones(), is_negative(digits.negative()){
     auto bits = digits.as_bits();
     usize i = 0;
     for (
