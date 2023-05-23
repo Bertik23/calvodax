@@ -6,11 +6,15 @@ Rational::Rational(Integer num, Integer denom)
     : numerator(num),
       denominator(denom)
 {
+    //std::cerr << num << " lomeno " << denom << std::endl;
     simplify();
 }
 
 void Rational::simplify(){
+    if (denominator.is_zero())
+        throw std::logic_error("division by zero");
     Integer g = gcd(numerator, denominator);
+    if (g == 1) return;
     numerator /= g;
     denominator /= g;
 }
@@ -78,4 +82,9 @@ std::ostream & operator << (std::ostream & os, const Rational & r){
         return os << r.numerator;
     } else 
         return os << "(" << r.numerator << " / " << r.denominator << ")";
+}
+
+
+Rational * Rational::clone() const{
+    return new Rational(*this);
 }

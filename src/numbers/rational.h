@@ -28,6 +28,7 @@ public:
     //Rational Number & operator |= (const Rational Number &);
     //Rational Number & operator &= (const Rational Number &);
     friend std::ostream & operator << (std::ostream &, const Rational &);
+    Rational * clone() const;
 private:
     void simplify();
     Integer numerator; // The upper number
