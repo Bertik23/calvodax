@@ -73,7 +73,7 @@ bool Integer::is_zero() const {
 }
 
 void Integer::print(std::ostream & os) const {
-    return number->get_digits().print(os);
+    return number->print(os);
 }
 
 Integer * Integer::clone () const {
