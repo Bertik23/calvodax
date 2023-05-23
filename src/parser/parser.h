@@ -21,6 +21,28 @@ public:
     virtual void print(std::ostream &) const = 0;
 };
 
+class Export: public ASTNode{
+public:
+    Export(const std::string &);
+    ~Export() override;
+    std::shared_ptr<Rational> eval() const override;
+    Export * clone() const override;
+    void print(std::ostream &) const override;
+private:
+    std::string file;
+};
+
+class Import: public ASTNode{
+public:
+    Import(const std::string &);
+    ~Import() override;
+    std::shared_ptr<Rational> eval() const override;
+    Import * clone() const override;
+    void print(std::ostream &) const override;
+private:
+    std::string file;
+};
+
 class CodeBlock : public ASTNode {
 public:
     CodeBlock() = default;
@@ -131,6 +153,8 @@ std::shared_ptr<ASTNode> parse_expr(std::list<Token> &);
 std::shared_ptr<ASTNode> parse_paren(std::list<Token> &);
 std::shared_ptr<ASTNode> parse_primary(std::list<Token> &);
 std::shared_ptr<ASTNode> parse_ident(std::list<Token> &);
+std::shared_ptr<ASTNode> parse_export(std::list<Token> &);
+std::shared_ptr<ASTNode> parse_import(std::list<Token> &);
 std::shared_ptr<ASTNode> parse_function(std::list<Token> &);
 std::shared_ptr<ASTNode> parse_bin_op_rhs(std::list<Token> &, ASTNode *, i32);
 

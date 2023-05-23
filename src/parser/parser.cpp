@@ -3,6 +3,8 @@
 #include <unordered_map>
 #include <sstream>
 #include <functional>
+#include <filesystem>
+#include <fstream>
 
 #include "../utils/exceptions.h"
 #include "../utils/utils.h"
@@ -58,6 +60,80 @@ void CodeBlock::print(std::ostream & os) const {
 
 void CodeBlock::add_expr(std::shared_ptr<ASTNode> ast){
     expresions.emplace_back(ast);
+}
+
+// -----------------------------------------------------------------------------
+// Export
+
+Export::Export(const std::string & str): file(str) {}
+
+Export::~Export() = default;
+
+std::shared_ptr<Rational> Export::eval() const {
+    try {
+        std::filesystem::path f(file+".cldx");
+        if (std::filesystem::is_directory(f))
+            throw text_error("Can't write to path.");
+        std::filesystem::create_directories(f.parent_path());
+        std::ofstream of(f);
+        for (auto & var : VARIABLE_MAP){
+            if (var.second.get() == nullptr) continue;
+            of << var.first << " = " << *var.second << "\n";
+        }
+        if (!of) throw text_error("Couldn't write to path");
+        std::cout << "Succesfully exported to: " << f << std::endl;
+        return std::shared_ptr<Rational>(new Rational(0));
+    } catch(std::filesystem::filesystem_error & e){
+        throw text_error("Can't write to path. " + std::string(e.what()));
+    }
+}
+
+void Export::print(std::ostream & os) const {
+    os << "Export " << file;
+}
+
+Export * Export::clone() const {
+    return new Export(*this);
+}
+
+// -----------------------------------------------------------------------------
+// Export
+
+Import::Import(const std::string & str): file(str) {}
+
+Import::~Import() = default;
+
+std::shared_ptr<Rational> Import::eval() const {
+    try {
+        std::filesystem::path f(file+".cldx");
+        //if (std::filesystem::is_regular_file(f))
+            //throw text_error("Can't read from path.");
+        std::ifstream ifile(f);
+        std::string line;
+        try {
+            while (ifile){
+                std::getline(ifile, line);
+                if (line == "") continue;
+                auto tokens = tokenize(line);
+                parse(tokens)->eval();
+            }
+        } catch(text_error & e) {
+            throw text_error("Invalid save file. " + std::string(e.what()));
+        }
+        if (ifile.bad()) throw text_error("Couldn't read from path");
+        std::cout << "Succesfully exported to: " << f << std::endl;
+        return std::shared_ptr<Rational>(new Rational(0));
+    } catch(std::filesystem::filesystem_error & e){
+        throw text_error("Can't write to path. " + std::string(e.what()));
+    }
+}
+
+void Import::print(std::ostream & os) const {
+    os << "Import " << file;
+}
+
+Import * Import::clone() const {
+    return new Import(*this);
 }
 
 // -----------------------------------------------------------------------------
@@ -326,12 +402,32 @@ std::shared_ptr<ASTNode> parse_ident(std::list<Token> & token_stream){
     if (token_stream.front().value == "exit"){
         throw exit_exception();
     }
+    if (token_stream.front().value == "export"){
+        token_stream.pop_front();
+        return parse_export(token_stream);
+    }
+    if (token_stream.front().value == "import"){
+        token_stream.pop_front();
+        return parse_import(token_stream);
+    }
     if ((*std::next(token_stream.begin())).type == TokenType::LParen){
         return parse_function(token_stream);
     }
     std::shared_ptr<ASTNode> var(new Var(token_stream.front().value));
     token_stream.pop_front();
     return var;
+}
+
+std::shared_ptr<ASTNode> parse_export(std::list<Token> & token_stream){
+    auto out = std::shared_ptr<Export>(new Export(token_stream.front().value));
+    token_stream.pop_front();
+    return out;
+}
+
+std::shared_ptr<ASTNode> parse_import(std::list<Token> & token_stream){
+    auto out = std::shared_ptr<Import>(new Import(token_stream.front().value));
+    token_stream.pop_front();
+    return out;
 }
 
 std::shared_ptr<ASTNode> parse_function(std::list<Token> & token_stream){
@@ -366,6 +462,7 @@ std::shared_ptr<ASTNode> parse_primary(std::list<Token> & token_stream){
         //std::cout << token_stream.front().value << std::endl;
         return parse_ident(token_stream);
     } else if (token_stream.front().type == TokenType::Delim){
+        throw syntax_error("Unexpected delimeter.");
         token_stream.pop_front();
         return parse_primary(token_stream);
     }
@@ -381,8 +478,14 @@ std::shared_ptr<ASTNode> parse_expr(std::list<Token> & token_stream){
 
 std::shared_ptr<ASTNode> parse(std::list<Token> & token_stream){
     std::shared_ptr<CodeBlock> out(new CodeBlock());
-    while (token_stream.size() - 1)
+    while (token_stream.size() > 0){
         out->add_expr(parse_expr(token_stream));
+        if (token_stream.front().type != TokenType::Delim)
+            throw syntax_error(
+                "Unexpected token: " + to_string(token_stream.front())
+            );
+        token_stream.pop_front();
+    }
     return out;
 }
 std::ostream & operator << (std::ostream & os, const ASTNode & ast){
