@@ -338,6 +338,21 @@ PowerBinOp * PowerBinOp::clone() const{
 }
 
 // -----------------------------------------------------------------------------
+// ModuloBinOp
+
+std::shared_ptr<Rational> ModuloBinOp::eval() const{
+    return std::shared_ptr<Rational>((*lhs->eval() % (*rhs->eval())).clone());
+}
+
+void ModuloBinOp::print(std::ostream & os) const {
+    os << "(^ " << *lhs << " " << *rhs << ")";
+}
+
+ModuloBinOp * ModuloBinOp::clone() const{
+    return new ModuloBinOp(*this);
+}
+
+// -----------------------------------------------------------------------------
 // AsignBinOp
 
 AsignBinOp * AsignBinOp::clone() const {
@@ -380,6 +395,9 @@ std::shared_ptr<ASTNode> make_bin_op(const Token & oper, std::shared_ptr<ASTNode
     }
     if (oper.value == "^"){
         return std::shared_ptr<ASTNode>(new PowerBinOp(*lhs, *rhs));
+    }
+    if (oper.value == "%"){
+        return std::shared_ptr<ASTNode>(new ModuloBinOp(*lhs, *rhs));
     }
 
     throw syntax_error("Unknown operator: " + to_string(oper));

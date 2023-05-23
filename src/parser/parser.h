@@ -147,6 +147,14 @@ public:
     void print(std::ostream &) const override;
 };
 
+class ModuloBinOp: public BinOp{
+public:
+    using BinOp::BinOp;
+    std::shared_ptr<Rational> eval() const override;
+    ModuloBinOp * clone() const override;
+    void print(std::ostream &) const override;
+};
+
 class AsignBinOp: public BinOp{
 public:
     using BinOp::BinOp;
