@@ -19,7 +19,7 @@ std::list<Token> tokenize(std::istream & is){
         out.emplace_back(TokenType::RParen);
     else if (std::regex_match(s, std::regex("[-+]?[0-9]+")))
         out.emplace_back(TokenType::Number, s);
-    else if (std::regex_match(s, std::regex("[+\\-*=/%<>^]*")))
+    else if (std::regex_match(s, std::regex("[-+*=/%<>^]*")))
         out.emplace_back(TokenType::Operator, s);
     else if (std::regex_match(s, std::regex(";*")))
         out.emplace_back(TokenType::Delim);
