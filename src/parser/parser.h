@@ -140,6 +140,14 @@ public:
     void print(std::ostream &) const override;
 };
 
+class PowerBinOp: public BinOp{
+public:
+    using BinOp::BinOp;
+    std::shared_ptr<Rational> eval() const override;
+    PowerBinOp * clone() const override;
+    void print(std::ostream &) const override;
+};
+
 class AsignBinOp: public BinOp{
 public:
     using BinOp::BinOp;

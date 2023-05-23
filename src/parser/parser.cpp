@@ -17,6 +17,7 @@ std::unordered_map<std::string, i32> OP_PRECEDENSE {
     {"-", 10},
     {"*", 20},
     {"/", 20},
+    {"^", 30},
     {"<", 5},
     {">", 5},
 };
@@ -25,13 +26,24 @@ static std::unordered_map<std::string, std::shared_ptr<Rational>> VARIABLE_MAP;
 static std::unordered_map<
     std::string,
     std::function<std::shared_ptr<Rational>(std::shared_ptr<Rational>)>
-> FUNCTION_MAP {{"factorial", [](std::shared_ptr<Rational> in){
-    std::shared_ptr<Rational> out(new Rational(1));
-    for (Rational i(2); i <= *in; i+=Rational(1)){
-        *out *= i;
-    }
-    return out;
-}}};
+> FUNCTION_MAP {
+    {"factorial", [](std::shared_ptr<Rational> in){
+        std::shared_ptr<Rational> out(new Rational(1));
+        for (Rational i(2); i <= *in; i+=Rational(1)){
+            *out *= i;
+        }
+        return out;
+    }},
+    {"round", [](std::shared_ptr<Rational> in){
+        return std::shared_ptr<Rational>(in->round().clone());
+    }},
+    {"floor", [](std::shared_ptr<Rational> in){
+        return std::shared_ptr<Rational>(in->floor().clone());
+    }},
+    {"ceil", [](std::shared_ptr<Rational> in){
+        return std::shared_ptr<Rational>(in->ceil().clone());
+    }}
+};
 
 // -----------------------------------------------------------------------------
 // CodeBlock
@@ -307,6 +319,21 @@ DivideBinOp * DivideBinOp::clone() const{
 }
 
 // -----------------------------------------------------------------------------
+// PowerBinOp
+
+std::shared_ptr<Rational> PowerBinOp::eval() const{
+    return std::shared_ptr<Rational>((lhs->eval()->power(*rhs->eval())).clone());
+}
+
+void PowerBinOp::print(std::ostream & os) const {
+    os << "(^ " << *lhs << " " << *rhs << ")";
+}
+
+PowerBinOp * PowerBinOp::clone() const{
+    return new PowerBinOp(*this);
+}
+
+// -----------------------------------------------------------------------------
 // AsignBinOp
 
 AsignBinOp * AsignBinOp::clone() const {
@@ -346,6 +373,9 @@ std::shared_ptr<ASTNode> make_bin_op(const Token & oper, std::shared_ptr<ASTNode
     }
     if (oper.value == "="){
         return std::shared_ptr<ASTNode>(new AsignBinOp(*lhs, *rhs));
+    }
+    if (oper.value == "^"){
+        return std::shared_ptr<ASTNode>(new PowerBinOp(*lhs, *rhs));
     }
 
     throw syntax_error("Unknown operator: " + to_string(oper));
