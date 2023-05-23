@@ -95,22 +95,18 @@ void Digits::print(std::ostream & os) const {
     if (is_negative){
         os << "-";
     }
-    #ifdef HEX
-    os << std::hex;
-    usize i = 0;
-    for (auto it = numbers.rbegin(); it != numbers.rend(); ++it){
-        if (i) os << std::setw(8) << std::setfill('0');
-        if (i || *it != 0) ++i;
-        else continue;
-        os << /* std::setw(8) << */ *it;
+    if (os.hex){
+        usize i = 0;
+        for (auto it = numbers.rbegin(); it != numbers.rend(); ++it){
+            if (i) os << std::setw(8) << std::setfill('0');
+            if (i || *it != 0) ++i;
+            else continue;
+            os << /* std::setw(8) << */ *it;
+        }
+        return;
     }
-    return;
-    #endif // HEX
-
-    #ifdef DEC
-    // Decimal
-    print_rec(os, *this);
-    #endif // DEC
+    if (os.dec)
+        print_rec(os, *this);
 }
 
 void Digits::print_rec(std::ostream & os, const Digits & x){
@@ -229,6 +225,7 @@ bool Digits::operator == (const Digits & other) const {
     for (usize i = 0; i < numbers.size(); ++i){
         if (numbers[i] != other.numbers[i]) return false;
     }
+    return true;
 }
 
 
