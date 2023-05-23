@@ -34,7 +34,7 @@ int main(){
             // }
 
             // cerr << "---------------\n";
-            ast = parse(static_cast<std::list<Token>&>(tokens));
+            ast = parse(tokens);
         } catch (syntax_error & e){
             cout << "Syntax error: " + string(e.what()) << endl;
             continue;
@@ -45,7 +45,7 @@ int main(){
             cout << "Error: " + string(e.what()) << endl;
         }
 
-        // dbg(*ast);
+        //dbg(*ast);
         shared_ptr<Rational> eval;
         try {
             eval = ast->eval();
