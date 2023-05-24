@@ -1,3 +1,4 @@
+/** @file */
 #pragma once
 
 #include "astnode.h"
@@ -6,6 +7,11 @@
 class Function : public CodeBlock {
 public:
     Function(const std::string &);
+    /**
+     * Evaluates node.
+     * 
+     * @throw `text_error` on invalid operations
+    */
     std::shared_ptr<Rational> eval(Context &) const override;
     Function * clone() const override;
     void print(std::ostream &) const override;

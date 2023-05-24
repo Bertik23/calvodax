@@ -1,3 +1,4 @@
+/** @file */
 #pragma once
 
 #include "exceptions/text_error.h"

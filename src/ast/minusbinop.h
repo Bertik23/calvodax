@@ -1,3 +1,4 @@
+/** @file */
 #pragma once
 
 #include "astnode.h"
@@ -7,6 +8,11 @@
 class MinusBinOp: public BinOp{
 public:
     using BinOp::BinOp;
+    /**
+     * Evaluates node.
+     * 
+     * @throw `text_error` on invalid operations
+    */
     std::shared_ptr<Rational> eval(Context &) const override;
     MinusBinOp * clone() const override;
     void print(std::ostream &) const override;

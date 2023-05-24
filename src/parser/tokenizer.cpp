@@ -5,6 +5,8 @@
 #include "../utils/exceptions.h"
 #include "../typedefs.h"
 
+Token::Token(TokenType type, std::string value): type(type), value(value) {}
+
 std::list<Token> tokenize(std::istream & is){
     std::list<Token> out;
 
