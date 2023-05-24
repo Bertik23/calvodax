@@ -3,8 +3,14 @@
 
 #include "astnode.h"
 
+/**
+ * Abstract node for holding a unary operator.
+*/
 class UnOp : public ASTNode{
 public:
+    /**
+     * Constructs node with argument.
+    */
     UnOp(const ASTNode & arg);
     // ~UnOp() override;
     // UnOp(const UnOp &);

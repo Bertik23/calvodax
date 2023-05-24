@@ -12,6 +12,12 @@ Rational::Rational(Integer num, Integer denom)
 }
 
 void Rational::simplify(){
+    if (denominator < 0){
+        if (numerator < 0){
+            numerator = -numerator;
+        }
+        denominator = -denominator;
+    }
     if (denominator.is_zero())
         throw std::logic_error("division by zero");
     Integer g = gcd(numerator, denominator);

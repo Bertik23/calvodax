@@ -11,6 +11,12 @@ void remove_leading_zeros(std::vector<u32> & arr){
     }
 }
 
+
+std::ostream & operator << (std::ostream & os, const Digits & n){
+    n.print(os);
+    return os;
+}
+
 Digits::Digits(): numbers(), is_negative(false){};
 
 Digits::Digits(i32 i)
@@ -229,6 +235,7 @@ bool Digits::operator <= (const Digits & other) const {
 }
 
 bool Digits::operator == (const Digits & other) const {
+    if (is_zero() && other.is_zero()) return true;
     if (is_negative != other.is_negative) return false;
     if (numbers.size() != other.numbers.size()) return false;
     for (usize i = 0; i < numbers.size(); ++i){

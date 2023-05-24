@@ -22,6 +22,9 @@ enum class TokenType{
     FileName
 };
 
+/**
+ * Overloaded operator << to write token type to output stream.
+*/
 std::ostream & operator << (std::ostream & os, const TokenType & t);
 
 /**

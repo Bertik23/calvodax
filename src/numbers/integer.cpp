@@ -1,5 +1,10 @@
 #include "integer.h"
 
+std::ostream & operator << (std::ostream & os, const Integer & n){
+    n.print(os);
+    return os;
+}
+
 Integer::Integer(const std::string & str)
     : number(find_representation(Digits::from_str(str))) {}
 
@@ -18,8 +23,8 @@ Integer & Integer::operator += (const Integer & other){
 Integer & Integer::operator -= (const Integer & other){
     number = find_representation(number->get_digits() - other.number->get_digits());
     return *this;
-
 }
+
 Integer & Integer::operator *= (const Integer & other){
     number = find_representation(number->get_digits() * other.number->get_digits());
     return *this;
@@ -39,6 +44,12 @@ Integer Integer::operator + (const Integer & other) const {
 
 Integer Integer::operator - (const Integer & other) const {
     return Integer(*this) -= other;
+}
+
+Integer Integer::operator - () const {
+    Integer out(*this);
+    out.number = find_representation(-number->get_digits());
+    return out;
 }
 
 Integer Integer::operator * (const Integer & other) const{
