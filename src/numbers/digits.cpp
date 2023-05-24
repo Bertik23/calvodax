@@ -99,7 +99,8 @@ void Digits::print(std::ostream & os) const {
     if (is_negative){
         os << "-";
     }
-    if (os.hex){
+
+    if (os.flags() & os.hex){
         os << "0x";
         usize i = 0;
         for (auto it = numbers.rbegin(); it != numbers.rend(); ++it){
@@ -110,7 +111,7 @@ void Digits::print(std::ostream & os) const {
         }
         return;
     }
-    if (os.dec)
+    if (os.flags() & os.dec)
         print_rec(os, *this);
 }
 
@@ -229,7 +230,7 @@ bool Digits::operator <= (const Digits & other) const {
 
 bool Digits::operator == (const Digits & other) const {
     if (is_negative != other.is_negative) return false;
-    // if (numbers.size() != other.numbers.size()) return false;
+    if (numbers.size() != other.numbers.size()) return false;
     for (usize i = 0; i < numbers.size(); ++i){
         if (numbers[i] != other.numbers[i]) return false;
     }

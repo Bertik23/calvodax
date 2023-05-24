@@ -38,7 +38,7 @@ void Sparse::print(std::ostream & os) const {
         if (!is_first)
             os << " + ";
         is_first -= 1;
-        os << "2 ^ " << (os.hex ? "0x" : "") << o;
+        os << "2 ^ " << (os.flags() & os.hex ? "0x" : "") << o;
     }
     os << " )";
 }
