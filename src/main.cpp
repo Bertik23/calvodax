@@ -28,6 +28,14 @@ int main(){
         try {
             string line;
             std::getline(cin, line);
+            if (line == "base16"){
+                cout << hex;
+                continue;
+            }
+            else if (line == "base10"){
+                cout << dec;
+                continue;
+            }
             auto tokens = tokenize(line);
             // for (const auto & a: tokens){
             //     cerr << a << endl;
