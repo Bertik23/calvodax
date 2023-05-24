@@ -75,6 +75,8 @@ $(function() {
   <div class="headertitle"><div class="title">Export Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="../../db/db5/export_8h_source.html">export.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Export:</div>
 <div class="dyncontent">
@@ -96,8 +98,7 @@ Collaboration diagram for Export:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab5ac0f3ba9ddacb61fcf223489f815ee"><td class="memItemLeft" align="right" valign="top"><a id="ab5ac0f3ba9ddacb61fcf223489f815ee" name="ab5ac0f3ba9ddacb61fcf223489f815ee"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Export</b> (const std::string &amp;)</td></tr>
+<tr class="memitem:ab5ac0f3ba9ddacb61fcf223489f815ee"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d16/classExport.html#ab5ac0f3ba9ddacb61fcf223489f815ee">Export</a> (const std::string &amp;)</td></tr>
 <tr class="separator:ab5ac0f3ba9ddacb61fcf223489f815ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0a3b1b3dc9e6ab98cf48bb7accd5a49d"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../da/d16/classExport.html#a0a3b1b3dc9e6ab98cf48bb7accd5a49d">eval</a> (<a class="el" href="../../d6/d7a/structContext.html">Context</a> &amp;) const override</td></tr>
 <tr class="separator:a0a3b1b3dc9e6ab98cf48bb7accd5a49d"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,6 +113,28 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a20780eb641e3395ae1d7299ea42f0eef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3a/classASTNode.html#a20780eb641e3395ae1d7299ea42f0eef">print</a> (std::ostream &amp;) const =0</td></tr>
 <tr class="separator:a20780eb641e3395ae1d7299ea42f0eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Node for holding the export command. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab5ac0f3ba9ddacb61fcf223489f815ee" name="ab5ac0f3ba9ddacb61fcf223489f815ee"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5ac0f3ba9ddacb61fcf223489f815ee">&#9670;&#160;</a></span>Export()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Export::Export </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>str</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constucts node with file name. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a24dee4b9b5efe88d9cd13d2693ff947d" name="a24dee4b9b5efe88d9cd13d2693ff947d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a24dee4b9b5efe88d9cd13d2693ff947d">&#9670;&#160;</a></span>clone()</h2>
@@ -189,7 +212,7 @@ Public Member Functions</h2></td></tr>
           <td class="memname">void Export::print </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><em>os</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>

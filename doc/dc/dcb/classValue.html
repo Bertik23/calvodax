@@ -76,6 +76,8 @@ $(function() {
   <div class="headertitle"><div class="title">Value Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="../../d4/d3f/value_8h_source.html">value.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for Value:</div>
 <div class="dyncontent">
@@ -97,8 +99,7 @@ Collaboration diagram for Value:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a40203ec7b188c2ba08ef84a89fd57f1b"><td class="memItemLeft" align="right" valign="top"><a id="a40203ec7b188c2ba08ef84a89fd57f1b" name="a40203ec7b188c2ba08ef84a89fd57f1b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Value</b> (const std::string &amp;)</td></tr>
+<tr class="memitem:a40203ec7b188c2ba08ef84a89fd57f1b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dcb/classValue.html#a40203ec7b188c2ba08ef84a89fd57f1b">Value</a> (const std::string &amp;)</td></tr>
 <tr class="separator:a40203ec7b188c2ba08ef84a89fd57f1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a140aa7ef593bafd15ce6e7a1967ca279"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/dcb/classValue.html#a140aa7ef593bafd15ce6e7a1967ca279">eval</a> (<a class="el" href="../../d6/d7a/structContext.html">Context</a> &amp;) const override</td></tr>
 <tr class="separator:a140aa7ef593bafd15ce6e7a1967ca279"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -119,6 +120,28 @@ Protected Attributes</h2></td></tr>
 std::shared_ptr&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>value</b></td></tr>
 <tr class="separator:a7600d733e38a6641a968efdc13551352"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Node for holding a literal value. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a40203ec7b188c2ba08ef84a89fd57f1b" name="a40203ec7b188c2ba08ef84a89fd57f1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a40203ec7b188c2ba08ef84a89fd57f1b">&#9670;&#160;</a></span>Value()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Value::Value </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>num</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Constructs node with value from string input. </p>
+
+</div>
+</div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a78cb0ae0eae4b62cfddfaf6b117b99b9" name="a78cb0ae0eae4b62cfddfaf6b117b99b9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a78cb0ae0eae4b62cfddfaf6b117b99b9">&#9670;&#160;</a></span>clone()</h2>
@@ -196,7 +219,7 @@ std::shared_ptr&lt; <a class="el" href="../../d8/da7/classRational.html">Rationa
           <td class="memname">void Value::print </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><em>os</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>

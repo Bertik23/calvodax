@@ -76,6 +76,8 @@ $(function() {
   <div class="headertitle"><div class="title">CodeBlock Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="../../d5/db4/codeblock_8h_source.html">codeblock.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for CodeBlock:</div>
 <div class="dyncontent">
@@ -104,8 +106,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af71575188171898ad8616942919590f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aefa71df392e089364b4f520409502514"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d2c/classCodeBlock.html#aefa71df392e089364b4f520409502514">print</a> (std::ostream &amp;) const override</td></tr>
 <tr class="separator:aefa71df392e089364b4f520409502514"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1dc015238d7dc497c35ececee0223ad5"><td class="memItemLeft" align="right" valign="top"><a id="a1dc015238d7dc497c35ececee0223ad5" name="a1dc015238d7dc497c35ececee0223ad5"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>add_expr</b> (std::shared_ptr&lt; <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode</a> &gt;)</td></tr>
+<tr class="memitem:a1dc015238d7dc497c35ececee0223ad5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d2c/classCodeBlock.html#a1dc015238d7dc497c35ececee0223ad5">add_expr</a> (std::shared_ptr&lt; <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode</a> &gt;)</td></tr>
 <tr class="separator:a1dc015238d7dc497c35ececee0223ad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2849303404c62fcc4be4aefd734f9db1"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3a/classASTNode.html#a2849303404c62fcc4be4aefd734f9db1">eval</a> (<a class="el" href="../../d6/d7a/structContext.html">Context</a> &amp;) const =0</td></tr>
 <tr class="separator:a2849303404c62fcc4be4aefd734f9db1"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -120,7 +121,28 @@ Protected Attributes</h2></td></tr>
 std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>expresions</b></td></tr>
 <tr class="separator:ab168afcd1c1ab6de2ca436cf755d88c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Member Function Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Node for holding a code block. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a1dc015238d7dc497c35ececee0223ad5" name="a1dc015238d7dc497c35ececee0223ad5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dc015238d7dc497c35ececee0223ad5">&#9670;&#160;</a></span>add_expr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void CodeBlock::add_expr </td>
+          <td>(</td>
+          <td class="paramtype">std::shared_ptr&lt; <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode</a> &gt;&#160;</td>
+          <td class="paramname"><em>ast</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Adds expresion to code block. </p>
+
+</div>
+</div>
 <a id="af71575188171898ad8616942919590f0" name="af71575188171898ad8616942919590f0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af71575188171898ad8616942919590f0">&#9670;&#160;</a></span>clone()</h2>
 
@@ -201,7 +223,7 @@ std::vector&lt; std::shared_ptr&lt; <a class="el" href="../../d2/d3a/classASTNod
           <td class="memname">void CodeBlock::print </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramname"><em>os</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
