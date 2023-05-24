@@ -1,8 +1,9 @@
 var searchData=
 [
-  ['default_5fptr_0',['default_ptr',['../dd/d3b/classdefault__ptr.html',1,'']]],
-  ['default_5fs_5fptr_1',['default_s_ptr',['../d1/d92/classdefault__s__ptr.html',1,'']]],
-  ['dense_2',['Dense',['../d0/dc7/classDense.html',1,'']]],
-  ['digits_3',['Digits',['../d2/d49/classDigits.html',1,'']]],
-  ['dividebinop_4',['DivideBinOp',['../d7/d46/classDivideBinOp.html',1,'']]]
+  ['dense_0',['Dense',['../d0/dc7/classDense.html',1,'']]],
+  ['dense_2eh_1',['dense.h',['../d6/d6f/dense_8h.html',1,'']]],
+  ['digits_2',['Digits',['../d2/d49/classDigits.html',1,'']]],
+  ['digits_2eh_3',['digits.h',['../d1/d6b/digits_8h.html',1,'']]],
+  ['dividebinop_4',['DivideBinOp',['../d7/d46/classDivideBinOp.html',1,'']]],
+  ['dividebinop_2eh_5',['dividebinop.h',['../d6/db0/dividebinop_8h.html',1,'']]]
 ];

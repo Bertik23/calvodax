@@ -75,25 +75,88 @@ $(function() {
   <div class="headertitle"><div class="title">NumberRepresentation Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="../../d8/d7d/numberrepresentation_8h_source.html">numberrepresentation.h</a>&gt;</code></p>
 <div class="dynheader">
 Inheritance diagram for NumberRepresentation:</div>
 <div class="dyncontent">
 <div class="center"><img src="../../d2/d01/classNumberRepresentation__inherit__graph.png" border="0" usemap="#aNumberRepresentation_inherit__map" alt="Inheritance graph"/></div>
 <map name="aNumberRepresentation_inherit__map" id="aNumberRepresentation_inherit__map">
 <area shape="rect" title=" " alt="" coords="5,5,161,32"/>
-<area shape="rect" href="../../d0/dc7/classDense.html" title=" " alt="" coords="53,80,113,107"/>
+<area shape="rect" href="../../d0/dc7/classDense.html" title=" " alt="" coords="11,80,70,107"/>
+<area shape="rect" href="../../d7/d75/classSparse.html" title=" " alt="" coords="95,80,157,107"/>
 </map>
 <center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a73bcee0373fb57c1dd1b294b128aa85f"><td class="memItemLeft" align="right" valign="top"><a id="a73bcee0373fb57c1dd1b294b128aa85f" name="a73bcee0373fb57c1dd1b294b128aa85f"></a>
-virtual <a class="el" href="../../d2/d49/classDigits.html">Digits</a>&#160;</td><td class="memItemRight" valign="bottom"><b>get_digits</b> () const =0</td></tr>
+<tr class="memitem:a73bcee0373fb57c1dd1b294b128aa85f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/d49/classDigits.html">Digits</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/classNumberRepresentation.html#a73bcee0373fb57c1dd1b294b128aa85f">get_digits</a> () const =0</td></tr>
 <tr class="separator:a73bcee0373fb57c1dd1b294b128aa85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a093621b27fceb57d3ee4e62608818ffa"><td class="memItemLeft" align="right" valign="top"><a id="a093621b27fceb57d3ee4e62608818ffa" name="a093621b27fceb57d3ee4e62608818ffa"></a>
 virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>print</b> (std::ostream &amp;) const =0</td></tr>
 <tr class="separator:a093621b27fceb57d3ee4e62608818ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa47c0a3be26185e020f3731a93e02220"><td class="memItemLeft" align="right" valign="top">virtual usize&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../de/d93/classNumberRepresentation.html#aa47c0a3be26185e020f3731a93e02220">get_size</a> () const =0</td></tr>
+<tr class="separator:aa47c0a3be26185e020f3731a93e02220"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Abstract base class for all number representations. </p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a73bcee0373fb57c1dd1b294b128aa85f" name="a73bcee0373fb57c1dd1b294b128aa85f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a73bcee0373fb57c1dd1b294b128aa85f">&#9670;&#160;</a></span>get_digits()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual <a class="el" href="../../d2/d49/classDigits.html">Digits</a> NumberRepresentation::get_digits </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns digits stored. </p>
+
+<p>Implemented in <a class="el" href="../../d0/dc7/classDense.html#a8c9341cf88aefb4b85b30c9da24a15db">Dense</a>, and <a class="el" href="../../d7/d75/classSparse.html#aca42f7916748ca45d1f879017edbfab3">Sparse</a>.</p>
+
+</div>
+</div>
+<a id="aa47c0a3be26185e020f3731a93e02220" name="aa47c0a3be26185e020f3731a93e02220"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa47c0a3be26185e020f3731a93e02220">&#9670;&#160;</a></span>get_size()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual usize NumberRepresentation::get_size </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns size in bytes. </p>
+
+<p>Implemented in <a class="el" href="../../d0/dc7/classDense.html#aa5afc7b6aad9210161dff9d49a6e5ad5">Dense</a>, and <a class="el" href="../../d7/d75/classSparse.html#a51ff3c418e1965f3c9db0ee258cbc71f">Sparse</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/numbers/<a class="el" href="../../d8/d7d/numberrepresentation_8h_source.html">numberrepresentation.h</a></li>
 </ul>

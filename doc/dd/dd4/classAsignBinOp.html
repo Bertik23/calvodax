@@ -98,8 +98,8 @@ Collaboration diagram for AsignBinOp:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9901eace3a69329553a0fd37054eed32"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dd4/classAsignBinOp.html#a9901eace3a69329553a0fd37054eed32">eval</a> () const override</td></tr>
-<tr class="separator:a9901eace3a69329553a0fd37054eed32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85d1eb3e3abf03f2733665ef3da0f6d9"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dd4/classAsignBinOp.html#a85d1eb3e3abf03f2733665ef3da0f6d9">eval</a> (<a class="el" href="../../d6/d7a/structContext.html">Context</a> &amp;) const override</td></tr>
+<tr class="separator:a85d1eb3e3abf03f2733665ef3da0f6d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a74d815245eb535eb23378f913a1e8dd6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/dd4/classAsignBinOp.html">AsignBinOp</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dd4/classAsignBinOp.html#a74d815245eb535eb23378f913a1e8dd6">clone</a> () const override</td></tr>
 <tr class="separator:a74d815245eb535eb23378f913a1e8dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a06060a657a9ab9326748497d8ccb2793"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/dd4/classAsignBinOp.html#a06060a657a9ab9326748497d8ccb2793">print</a> (std::ostream &amp;) const override</td></tr>
@@ -111,14 +111,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aa5542276af015da8b842b08756853c5f inherit pub_methods_classBinOp"><td class="memItemLeft" align="right" valign="top"><a id="aa5542276af015da8b842b08756853c5f" name="aa5542276af015da8b842b08756853c5f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>BinOp</b> (const <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode</a> &amp;lhs, const <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode</a> &amp;rhs)</td></tr>
 <tr class="separator:aa5542276af015da8b842b08756853c5f inherit pub_methods_classBinOp"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81120462b91c88280b78f1115234d6ba"><td class="memItemLeft" align="right" valign="top"><a id="a81120462b91c88280b78f1115234d6ba" name="a81120462b91c88280b78f1115234d6ba"></a>
-virtual std::shared_ptr&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>eval</b> () const =0</td></tr>
-<tr class="separator:a81120462b91c88280b78f1115234d6ba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f3ffbcce92711a7e68e9e217504993f"><td class="memItemLeft" align="right" valign="top"><a id="a5f3ffbcce92711a7e68e9e217504993f" name="a5f3ffbcce92711a7e68e9e217504993f"></a>
-virtual <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><b>clone</b> () const =0</td></tr>
+<tr class="memitem:a2849303404c62fcc4be4aefd734f9db1"><td class="memItemLeft" align="right" valign="top">virtual std::shared_ptr&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3a/classASTNode.html#a2849303404c62fcc4be4aefd734f9db1">eval</a> (<a class="el" href="../../d6/d7a/structContext.html">Context</a> &amp;) const =0</td></tr>
+<tr class="separator:a2849303404c62fcc4be4aefd734f9db1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f3ffbcce92711a7e68e9e217504993f"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3a/classASTNode.html#a5f3ffbcce92711a7e68e9e217504993f">clone</a> () const =0</td></tr>
 <tr class="separator:a5f3ffbcce92711a7e68e9e217504993f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20780eb641e3395ae1d7299ea42f0eef"><td class="memItemLeft" align="right" valign="top"><a id="a20780eb641e3395ae1d7299ea42f0eef" name="a20780eb641e3395ae1d7299ea42f0eef"></a>
-virtual void&#160;</td><td class="memItemRight" valign="bottom"><b>print</b> (std::ostream &amp;) const =0</td></tr>
+<tr class="memitem:a20780eb641e3395ae1d7299ea42f0eef"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d2/d3a/classASTNode.html#a20780eb641e3395ae1d7299ea42f0eef">print</a> (std::ostream &amp;) const =0</td></tr>
 <tr class="separator:a20780eb641e3395ae1d7299ea42f0eef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
@@ -154,13 +151,14 @@ std::shared_ptr&lt; <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode<
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Uses copyconstructor to make a heap allocated copy of self and return pointer to it. </p>
 
-<p>Implements <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode</a>.</p>
+<p>Implements <a class="el" href="../../d2/d3a/classASTNode.html#a5f3ffbcce92711a7e68e9e217504993f">ASTNode</a>.</p>
 
 </div>
 </div>
-<a id="a9901eace3a69329553a0fd37054eed32" name="a9901eace3a69329553a0fd37054eed32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9901eace3a69329553a0fd37054eed32">&#9670;&#160;</a></span>eval()</h2>
+<a id="a85d1eb3e3abf03f2733665ef3da0f6d9" name="a85d1eb3e3abf03f2733665ef3da0f6d9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85d1eb3e3abf03f2733665ef3da0f6d9">&#9670;&#160;</a></span>eval()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -171,7 +169,8 @@ std::shared_ptr&lt; <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode<
         <tr>
           <td class="memname">std::shared_ptr&lt; <a class="el" href="../../d8/da7/classRational.html">Rational</a> &gt; AsignBinOp::eval </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="../../d6/d7a/structContext.html">Context</a> &amp;&#160;</td>
+          <td class="paramname"><em>cntx</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -181,8 +180,15 @@ std::shared_ptr&lt; <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode<
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Evaluates node.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">`text_error`</td><td>on invalid operations </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Implements <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode</a>.</p>
+<p>Implements <a class="el" href="../../d2/d3a/classASTNode.html#a2849303404c62fcc4be4aefd734f9db1">ASTNode</a>.</p>
 
 </div>
 </div>
@@ -199,7 +205,7 @@ std::shared_ptr&lt; <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode<
           <td class="memname">void AsignBinOp::print </td>
           <td>(</td>
           <td class="paramtype">std::ostream &amp;&#160;</td>
-          <td class="paramname"><em>os</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
@@ -209,14 +215,15 @@ std::shared_ptr&lt; <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode<
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Prints self to output stream. </p>
 
-<p>Implements <a class="el" href="../../d2/d3a/classASTNode.html">ASTNode</a>.</p>
+<p>Implements <a class="el" href="../../d2/d3a/classASTNode.html#a20780eb641e3395ae1d7299ea42f0eef">ASTNode</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>src/parser/<a class="el" href="../../d5/d36/parser_8h_source.html">parser.h</a></li>
-<li>src/parser/parser.cpp</li>
+<li>src/ast/<a class="el" href="../../d7/d29/asignbinop_8h_source.html">asignbinop.h</a></li>
+<li>src/ast/asignbinop.cpp</li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
