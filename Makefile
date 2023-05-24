@@ -5,8 +5,8 @@ CXXFLAGS := -Wall -pedantic -Wextra -Weffc++ -Wdiv-by-zero -Wmaybe-uninitialized
 LD := g++
 LDFLAGS := -pg -O2
 
-SRC=$(wildcard src/*.cpp src/*/*.cpp)
-HDR=$(wildcard src/*.h src/*/*.h)
+SRC=$(wildcard src/*.cpp src/*/*.cpp src/*/*/*.cpp)
+HDR=$(wildcard src/*.h src/*/*.h src/*/*/*.h)
 OBJ=$(patsubst src/%.cpp, build/%.o, $(SRC))
 
 .PHONY: all, run, build, clean, doc, build_
