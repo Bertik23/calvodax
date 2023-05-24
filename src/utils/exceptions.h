@@ -1,19 +1,5 @@
-#include <exception>
-#include <string>
+#pragma once
 
-class text_error: public std::exception{
-public:
-    text_error(const std::string &);
-    const char * what() const noexcept override;
-private:
-    std::string message;
-};
-
-class syntax_error: public text_error{
-    using text_error::text_error;
-};
-
-class exit_exception: public text_error{
-public:
-    exit_exception();
-};
+#include "exceptions/text_error.h"
+#include "exceptions/exit_exception.h"
+#include "exceptions/syntax_error.h"
