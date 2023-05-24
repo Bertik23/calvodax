@@ -19,16 +19,20 @@ std::list<Token> tokenize(std::istream & is){
         out.emplace_back(TokenType::RParen);
     else if (std::regex_match(s, std::regex("[-+]?[0-9]+")))
         out.emplace_back(TokenType::Number, s);
+    else if (std::regex_match(s, std::regex("[-+]?0x[0-9A-Fa-f]+")))
+        out.emplace_back(TokenType::Number, s);
     else if (std::regex_match(s, std::regex("[-+*=/%<>^]*")))
         out.emplace_back(TokenType::Operator, s);
     else if (std::regex_match(s, std::regex(";*")))
         out.emplace_back(TokenType::Delim);
     else if (s == ",")
         out.emplace_back(TokenType::Separator);
-    else// if (std::regex_match(s, std::regex("[a-zA-Z]*")))
+    else if (std::regex_match(s, std::regex("[a-zA-Z]+")))
         out.emplace_back(TokenType::Identifier, s);
-    //else
-        //throw syntax_error("Unrecognised token: " + s);
+    else if (std::regex_match(s, std::regex("[a-zA-Z0-9\./]+")))
+        out.emplace_back(TokenType::FileName, s);
+    else
+        throw syntax_error("Unrecognised token: " + s);
 
     out.splice(out.end(), tokenize(is));
     return out;
@@ -58,6 +62,8 @@ std::ostream & operator << (std::ostream & os, const TokenType & t){
         return os << "Operator";
     case TokenType::Delim:
         return os << "Delim";
+    case TokenType::FileName:
+        return os << "FileName";
     
     default:
         return os << "Unknown(" << (u32) t << ")";

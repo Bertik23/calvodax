@@ -1,7 +1,7 @@
 #include "integer.h"
 
 Integer::Integer(const std::string & str)
-    : number(find_representation(Digits::from_dec_str(str))) {}
+    : number(find_representation(Digits::from_str(str))) {}
 
 Integer::Integer(i32 i)
     : number(find_representation(Digits(i))) {}

@@ -11,7 +11,8 @@ enum class TokenType{
     Number,
     Operator,
     Delim,
-    Separator
+    Separator,
+    FileName
 };
 
 std::ostream & operator << (std::ostream & os, const TokenType & t);

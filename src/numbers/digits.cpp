@@ -3,8 +3,7 @@
 #include <cmath>
 #include <iomanip>
 #include <bitset>
-
-#define HEX
+#include <regex>
 
 void remove_leading_zeros(std::vector<u32> & arr){
     while (arr.size() > 1 && !arr.back()){
@@ -101,6 +100,7 @@ void Digits::print(std::ostream & os) const {
         os << "-";
     }
     if (os.hex){
+        os << "0x";
         usize i = 0;
         for (auto it = numbers.rbegin(); it != numbers.rend(); ++it){
             if (i) os << std::setw(8) << std::setfill('0');
@@ -371,8 +371,6 @@ Digits * Digits::clone() const {
     return new Digits(*this);
 }
 
-Digits::Digits(const std::string & num): numbers{(u32)std::stoi(num)} {}
-
 Digits Digits::operator>>(u32 shift) const{
     return Digits(*this) >>= shift;
 }
@@ -403,6 +401,34 @@ Digits Digits::from_dec_str(const std::string & str){
         order *= 10;
     }
     return out;
+}
+
+Digits Digits::from_hex_str(const std::string & str){
+    Digits out(0);
+    Digits order(1);
+    usize pos = 0;
+    if (str.front() == '+')
+        out.is_negative = (++pos, false);
+    else if (str.front() == '-')
+        out.is_negative = ++pos;
+    for (auto it = str.rbegin(); it != str.rend()-2-pos; ++it){
+        out += order * (
+            *it >= 'a' && *it <= 'f'
+                ? *it - 'a' + 0xa
+                :
+            (*it >= 'A' && *it <= 'F'
+                ? *it - 'A' + 0xA
+                : *it - '0'));
+        order *= 0x10;        
+    }
+    return out;
+}
+
+Digits Digits::from_str(const std::string & s){
+    if (std::regex_match(s, std::regex("[-+]?0x[0-9A-Fa-f]+"))){
+        return from_hex_str(s);
+    }
+    return from_dec_str(s);
 }
 
 std::vector<bool> Digits::as_bits() const {

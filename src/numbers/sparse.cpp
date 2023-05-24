@@ -33,12 +33,14 @@ void Sparse::print(std::ostream & os) const {
     }
     if (is_negative) os << "-";
     bool is_first = true;
+    os << "( ";
     for (auto & o: ones){
         if (!is_first)
-            os << "+";
+            os << " + ";
         is_first -= 1;
-        os << "2^" << o;
+        os << "2 ^ " << (os.hex ? "0x" : "") << o;
     }
+    os << " )";
 }
 
 usize Sparse::get_size() const {

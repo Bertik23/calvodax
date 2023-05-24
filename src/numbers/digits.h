@@ -16,8 +16,9 @@ public:
     Digits(std::vector<u32> &&, bool);
     Digits(const Digits &);
     Digits(Digits &&);
-    Digits(const std::string &);
+    static Digits from_str(const std::string &);
     static Digits from_dec_str(const std::string &);
+    static Digits from_hex_str(const std::string &);
     ~Digits();
     Digits & operator = (const Digits &);
     Digits & operator = (Digits &&);
