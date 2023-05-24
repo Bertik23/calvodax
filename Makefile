@@ -11,9 +11,11 @@ SRC=$(wildcard src/*.cpp src/*/*.cpp src/*/*/*.cpp)
 HDR=$(wildcard src/*.h src/*/*.h src/*/*/*.h)
 OBJ=$(patsubst src/%.cpp, build/%.o, $(SRC))
 
-.PHONY: all run build clean doc build_ test build_test zip
+.PHONY: all run build clean doc build_ test build_test zip compile
 
 all: clean build
+
+compile: build
 
 run: build
 	./calvodax
@@ -50,11 +52,11 @@ doc:
 
 zip:
 	rm -f havlialb.zip
-	rm -rf havlialb
-	mkdir -p havlialb
-	cp -r src examples Doxyfile Grammar Makefile zadani.txt prohlaseni.txt havlialb
-	zip -ll -r havlialb havlialb
-	rm -r havlialb
+	rm -rf tmp
+	mkdir -p tmp/havlialb
+	cp -r src examples Doxyfile Grammar Makefile zadani.txt prohlaseni.txt tmp/havlialb
+	cd tmp && zip -ll -r ../havlialb havlialb
+	rm -r tmp/havlialb
 
 -include build/Makefile.d
 
