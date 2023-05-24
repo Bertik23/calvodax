@@ -19,7 +19,7 @@ Sparse::Sparse(const Digits & digits): ones(), is_negative(digits.negative()){
 Digits Sparse::get_digits() const {
     Digits out(0);
     for (auto & o: ones){
-        std::cerr << o << std::endl;
+        //std::cerr << o << std::endl;
         out += Digits(2).power(o);
     }
     if (is_negative) return -out;
