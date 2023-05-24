@@ -9,7 +9,7 @@ SRC=$(wildcard src/*.cpp src/*/*.cpp src/*/*/*.cpp)
 HDR=$(wildcard src/*.h src/*/*.h src/*/*/*.h)
 OBJ=$(patsubst src/%.cpp, build/%.o, $(SRC))
 
-.PHONY: all, run, build, clean, doc, build_
+.PHONY: all, run, build, clean, doc, build_, test, build_test, zip
 
 all: clean build
 
