@@ -8,10 +8,10 @@
 
 #include "../utils/exceptions.h"
 #include "../utils/utils.h"
-//#include "../numbers/integer.h"
+#include "context.h"
 
 
-std::unordered_map<std::string, i32> OP_PRECEDENSE {
+const std::unordered_map<std::string, i32> OP_PRECEDENSE {
     {"=", 1},
     {"+", 10},
     {"-", 10},
@@ -22,8 +22,7 @@ std::unordered_map<std::string, i32> OP_PRECEDENSE {
     {">", 5},
 };
 
-static std::unordered_map<std::string, std::shared_ptr<Rational>> VARIABLE_MAP;
-static std::unordered_map<
+std::unordered_map<
     std::string,
     std::function<std::shared_ptr<Rational>(std::shared_ptr<Rational>)>
 > FUNCTION_MAP {
@@ -50,13 +49,13 @@ static std::unordered_map<
 
 CodeBlock::CodeBlock(): expresions() {};
 
-std::shared_ptr<Rational> CodeBlock::eval() const {
+std::shared_ptr<Rational> CodeBlock::eval(Context & cntx) const {
     if (expresions.size() == 0) return std::shared_ptr<Rational>(new Rational(0));
 
     for (auto it = expresions.begin(); it != expresions.end()-1; ++it){
-        (*(*it)).eval();
+        (*(*it)).eval(cntx);
     }
-    return expresions.back()->eval();
+    return expresions.back()->eval(cntx);
 }
 
 CodeBlock * CodeBlock::clone() const {
@@ -83,14 +82,14 @@ Export::Export(const std::string & str): file(str) {}
 
 Export::~Export() = default;
 
-std::shared_ptr<Rational> Export::eval() const {
+std::shared_ptr<Rational> Export::eval(Context & cntx) const {
     try {
         std::filesystem::path f(file+".cldx");
         if (std::filesystem::is_directory(f))
             throw text_error("Can't write to path.");
         std::filesystem::create_directories(f.parent_path());
         std::ofstream of(f);
-        for (auto & var : VARIABLE_MAP){
+        for (auto & var : cntx.variable_map){
             if (var.second.get() == nullptr) continue;
             of << var.first << " = " << *var.second << "\n";
         }
@@ -117,7 +116,7 @@ Import::Import(const std::string & str): file(str) {}
 
 Import::~Import() = default;
 
-std::shared_ptr<Rational> Import::eval() const {
+std::shared_ptr<Rational> Import::eval(Context & cntx) const {
     try {
         std::filesystem::path f(file+".cldx");
         //if (std::filesystem::is_regular_file(f))
@@ -131,7 +130,7 @@ std::shared_ptr<Rational> Import::eval() const {
                 std::getline(ifile, line);
                 if (line == "") continue;
                 auto tokens = tokenize(line);
-                parse(tokens)->eval();
+                parse(tokens)->eval(cntx);
             }
         } catch(text_error & e) {
             throw text_error("Invalid save file. " + std::string(e.what()));
@@ -157,12 +156,12 @@ Import * Import::clone() const {
 
 Function::Function(const std::string & name): CodeBlock(), name(name){};
 
-std::shared_ptr<Rational> Function::eval() const {
+std::shared_ptr<Rational> Function::eval(Context & cntx) const {
     auto f = FUNCTION_MAP.find(name);
     if (f == FUNCTION_MAP.end()){
         throw text_error("Undefined function: " + name);
     }
-    return f->second(expresions.front()->eval());
+    return f->second(expresions.front()->eval(cntx));
 }
 
 Function * Function::clone() const {
@@ -224,7 +223,7 @@ UnOp::UnOp(const ASTNode & arg): arg(arg.clone()){}
 
 Value::Value(const std::string & num): value(new Rational(num)) {};
 
-std::shared_ptr<Rational> Value::eval() const {
+std::shared_ptr<Rational> Value::eval(Context &) const {
     return value;
 }
 
@@ -245,8 +244,8 @@ Var::Var(const std::string & str): name(str) {}
 
 Var::~Var() = default;
 
-std::shared_ptr<Rational> Var::eval() const {
-    return VARIABLE_MAP.emplace(
+std::shared_ptr<Rational> Var::eval(Context & cntx) const {
+    return cntx.variable_map.emplace(
         name, std::shared_ptr<Rational>(new Rational(0))
     ).first->second;
 }
@@ -262,8 +261,8 @@ Var * Var::clone() const {
 // -----------------------------------------------------------------------------
 // PlusBinOp
 
-std::shared_ptr<Rational> PlusBinOp::eval() const{
-    return std::shared_ptr<Rational>((*lhs->eval() + *rhs->eval()).clone());
+std::shared_ptr<Rational> PlusBinOp::eval(Context & cntx) const{
+    return std::shared_ptr<Rational>((*lhs->eval(cntx) + *rhs->eval(cntx)).clone());
 }
 
 PlusBinOp * PlusBinOp::clone() const{
@@ -277,8 +276,8 @@ void PlusBinOp::print(std::ostream & os) const {
 // -----------------------------------------------------------------------------
 // MinusBinOp
 
-std::shared_ptr<Rational> MinusBinOp::eval() const{
-    return std::shared_ptr<Rational>((*lhs->eval() - *rhs->eval()).clone());
+std::shared_ptr<Rational> MinusBinOp::eval(Context & cntx) const{
+    return std::shared_ptr<Rational>((*lhs->eval(cntx) - *rhs->eval(cntx)).clone());
 }
 
 MinusBinOp * MinusBinOp::clone() const{
@@ -292,9 +291,9 @@ void MinusBinOp::print(std::ostream & os) const {
 // -----------------------------------------------------------------------------
 // TimesBinOp
 
-std::shared_ptr<Rational> TimesBinOp::eval() const{
+std::shared_ptr<Rational> TimesBinOp::eval(Context & cntx) const{
     //std::cerr << "Times" << std::endl; 
-    auto out = std::shared_ptr<Rational>((*lhs->eval() * *rhs->eval()).clone());
+    auto out = std::shared_ptr<Rational>((*lhs->eval(cntx) * *rhs->eval(cntx)).clone());
     //std::cerr << "Times end" << std::endl;
     return out;
 }
@@ -310,8 +309,8 @@ void TimesBinOp::print(std::ostream & os) const {
 // -----------------------------------------------------------------------------
 // DivideBinOp
 
-std::shared_ptr<Rational> DivideBinOp::eval() const{
-    return std::shared_ptr<Rational>((*lhs->eval() / *rhs->eval()).clone());
+std::shared_ptr<Rational> DivideBinOp::eval(Context & cntx) const{
+    return std::shared_ptr<Rational>((*lhs->eval(cntx) / *rhs->eval(cntx)).clone());
 }
 
 void DivideBinOp::print(std::ostream & os) const {
@@ -325,8 +324,8 @@ DivideBinOp * DivideBinOp::clone() const{
 // -----------------------------------------------------------------------------
 // PowerBinOp
 
-std::shared_ptr<Rational> PowerBinOp::eval() const{
-    return std::shared_ptr<Rational>((lhs->eval()->power(*rhs->eval())).clone());
+std::shared_ptr<Rational> PowerBinOp::eval(Context & cntx) const{
+    return std::shared_ptr<Rational>((lhs->eval(cntx)->power(*rhs->eval(cntx))).clone());
 }
 
 void PowerBinOp::print(std::ostream & os) const {
@@ -340,8 +339,8 @@ PowerBinOp * PowerBinOp::clone() const{
 // -----------------------------------------------------------------------------
 // ModuloBinOp
 
-std::shared_ptr<Rational> ModuloBinOp::eval() const{
-    return std::shared_ptr<Rational>((*lhs->eval() % (*rhs->eval())).clone());
+std::shared_ptr<Rational> ModuloBinOp::eval(Context & cntx) const{
+    return std::shared_ptr<Rational>((*lhs->eval(cntx) % (*rhs->eval(cntx))).clone());
 }
 
 void ModuloBinOp::print(std::ostream & os) const {
@@ -359,9 +358,9 @@ AsignBinOp * AsignBinOp::clone() const {
     return new AsignBinOp(*this);
 }
 
-std::shared_ptr<Rational> AsignBinOp::eval() const {
-    auto var = lhs->eval();
-    *var = *rhs->eval();
+std::shared_ptr<Rational> AsignBinOp::eval(Context & cntx) const {
+    auto var = lhs->eval(cntx);
+    *var = *rhs->eval(cntx);
     return var;
 }
 
