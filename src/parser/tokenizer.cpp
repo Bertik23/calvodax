@@ -29,7 +29,7 @@ std::list<Token> tokenize(std::istream & is){
         out.emplace_back(TokenType::Separator);
     else if (std::regex_match(s, std::regex("[a-zA-Z]+")))
         out.emplace_back(TokenType::Identifier, s);
-    else if (std::regex_match(s, std::regex("[a-zA-Z0-9\./]+")))
+    else if (std::regex_match(s, std::regex(R"([a-zA-Z0-9\./]+)")))
         out.emplace_back(TokenType::FileName, s);
     else
         throw syntax_error("Unrecognised token: " + s);
