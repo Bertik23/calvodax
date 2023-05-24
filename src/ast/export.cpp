@@ -2,6 +2,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <iomanip>
 
 #include "../utils/exceptions.h"
 
@@ -16,6 +17,7 @@ std::shared_ptr<Rational> Export::eval(Context & cntx) const {
             throw text_error("Can't write to path.");
         std::filesystem::create_directories(f.parent_path());
         std::ofstream of(f);
+        of << std::hex;
         for (auto & var : cntx.variable_map){
             if (var.second.get() == nullptr) continue;
             of << var.first << " = " << *var.second << "\n";
