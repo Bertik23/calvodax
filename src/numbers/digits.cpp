@@ -259,7 +259,6 @@ Digits & Digits::operator-=(const Digits & other) {
         }
         if (diff > a.numbers[i]) {
             borrow = 1;
-            // diff += (1ULL << 32);
         } else {
             borrow = 0;
         }
@@ -304,10 +303,11 @@ Digits & Digits::operator %= (const Digits & divider){
 u32 find_digit(const Digits & a, const Digits & b){
     u32 digit = (1 << 31);
     u32 step = digit;
-    while (!(b * digit <= a && b*(digit+1) > a)){
+    Digits r;
+    while (r = b*digit, !(r <= a && r+b > a)){
         step >>= 1;
         if (!step) step = 1;
-        if (b * digit > a){
+        if (r > a){
             digit -= step;
         } else digit += step;
     }
@@ -345,7 +345,7 @@ std::pair<Digits,Digits> Digits::divide (Digits upper, const Digits & lower) {
             for (usize i = 0; i < num_digits - top_digits.size(); ++i){
                 out_digits.emplace(out_digits.begin(), 0);
             }
-            }
+        }
     }
 
     remove_leading_zeros(out_digits);
