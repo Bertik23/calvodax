@@ -128,19 +128,14 @@ void Digits::print_rec(std::ostream & os, const Digits & x){
         return;
     }
 
-    // std::cerr << "1" << std::endl;
-
     auto o = divide(x, 10);
     os << o.first;
     os << o.second;
-    // print_rec(os, o.first);
 }
 
 Digits & Digits::operator *= (const Digits & other){
     u32 cary = 0;
-    //std::cerr << is_negative << " " << other.is_negative << " ";
     is_negative = is_negative ^ other.is_negative;
-    //std::cerr << is_negative << std::endl;
     if (is_zero() || other.is_zero()){
         is_negative = false;
         numbers = {0};
@@ -161,28 +156,17 @@ Digits & Digits::operator *= (const Digits & other){
             j < other.numbers.size();
             ++j
         ){
-            // auto prev = numbers[i];
             u64 o = (u64)other.numbers[j] * (u64)numbers[i];
-
-            // std::cout << std::setw(16) << std::hex << o << std::endl;
-            // std::cout << std::setw(16) << (o & (((u64)1<<31) - 1)) << std::endl;
-            // std::cout << std::setw(16) << (o >> 32) << std::endl;
-
-            // std::cout << std::dec;
 
             o_vec.push_back(o & (((u64)1<<33) - 1));
             cary = o >> 32;
             caries.push_back(cary);
-            // if (numbers[i] < prev){
-            //     cary = 1;
-            // } else cary = 0;
         }
         out += caries;
         out += o_vec;
     }
     out.is_negative = is_negative;
-    // std::cout << "Digits: " << Digits(caries) << std::endl;
-    *this = std::move(out); // Digits(std::move(caries));
+    *this = std::move(out);
     return *this;
 }
 
@@ -362,12 +346,6 @@ std::pair<Digits,Digits> Digits::divide (Digits upper, const Digits & lower) {
     return std::make_pair(out, rem);
 }
 
-// u32 Digits::find_digit (Digits upper, const Digits & lower){
-//     u32 num = 0;
-//     while (upper > lower){
-        
-//     }
-// }
 
 bool Digits::is_zero() const {
     for (const auto & i: numbers){
@@ -421,11 +399,16 @@ Digits Digits::from_hex_str(const std::string & str){
     Digits out(0);
     Digits order(1);
     usize pos = 0;
+    // Check if there is a sign in front, if yes, set pos to 1 and adjust sign
+    // of output acordingly
     if (str.front() == '+')
         out.is_negative = (++pos, false);
     else if (str.front() == '-')
         out.is_negative = ++pos;
+    // Read chars from end, stop 2 or 3, if there is not a sign or if there is
+    // a sign respectively, chars before begining (expects 0x prefix)
     for (auto it = str.rbegin(); it != str.rend()-2-pos; ++it){
+        // C doesn't have if expresions, so ternary operators it is
         out += order * (
             *it >= 'a' && *it <= 'f'
                 ? *it - 'a' + 0xa

@@ -55,9 +55,7 @@ Integer Integer::operator - () const {
 Integer Integer::operator * (const Integer & other) const{
     return Integer(*this) *= other;
 }
-//Integer Integer::operator - () const{
-    //return ;
-//}
+
 Integer Integer::operator / (const Integer & other) const{
     return Integer(*this) /= other;
 }
