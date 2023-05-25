@@ -2,7 +2,23 @@
 
 Calvodax is a calculator, that can represent numbers with unlimited precision.
 
-
+## Usage
+Run using ```sh
+./calvodax
+```
+Export variables with ```
+export filename
+```
+Import variables with ```
+import filename
+```
+Perform basic operations with standard math notation (you have to add spaces between tokens)
+You can use functions like this ```
+factorial ( number )
+round ( number )
+floor ( number )
+ceil ( number )
+```
 
 
 
