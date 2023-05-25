@@ -57,7 +57,7 @@ zip:
 	rm -f havlialb.zip
 	rm -rf tmp
 	mkdir -p tmp/havlialb
-	cp -r src examples Doxyfile Grammar Makefile zadani.txt prohlaseni.txt tmp/havlialb
+	cp -r src examples Doxyfile Grammar Makefile zadani.txt prohlaseni.txt README.md tmp/havlialb
 	cd tmp && zip -ll -r ../havlialb havlialb
 	rm -r tmp/havlialb
 
