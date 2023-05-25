@@ -327,6 +327,7 @@ std::pair<Digits,Digits> Digits::divide (Digits upper, const Digits & lower) {
 
     while (upper >= lower){
         std::vector<u32> top_digits;
+        usize num_digits = upper.size();
         for (
             usize i = upper.numbers.size() - 1;
             Digits(top_digits) < lower && top_digits.size() != upper.numbers.size();
@@ -340,6 +341,11 @@ std::pair<Digits,Digits> Digits::divide (Digits upper, const Digits & lower) {
             greater.emplace(greater.begin(), 0);
         upper -= (lower * digit * greater);
         out_digits.insert(out_digits.begin(), digit);
+        if (upper.is_zero() && top_digits.size() != num_digits){
+            for (usize i = 0; i < num_digits - top_digits.size(); ++i){
+                out_digits.emplace(out_digits.begin(), 0);
+            }
+            }
     }
 
     remove_leading_zeros(out_digits);
