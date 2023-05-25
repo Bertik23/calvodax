@@ -29,10 +29,20 @@ public:
     /// @brief Destructevely deep copies
     Digits(Digits &&);
     /// @brief Factory to make digits from string
+    ///
+    /// If given a string that is not only decimal digits (possible + or - in
+    /// front) or a hex number (optional sign, 0x, hexadecimal digits) output
+    /// is undefined.
     static Digits from_str(const std::string &);
     /// @brief Factory to make digits from decimal string
+    ///
+    /// If given a string that is not only decimal digits (possible + or - in
+    /// front) output is undefined.
     static Digits from_dec_str(const std::string &);
     /// @brief Factory to make digits from hexadecimal string
+    ///
+    /// If given a string that is not hex number (optional sign, 0x, hexadecimal
+    /// digits) output is undefined.
     static Digits from_hex_str(const std::string &);
     ~Digits();
     /// @brief Asignment operator with deep copy
