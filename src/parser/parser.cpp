@@ -81,11 +81,9 @@ std::shared_ptr<ASTNode> parse_bin_op_rhs(
         i32 operator_precedense;
         {
             const Token & cur_tok = token_stream.front();
-            // std::cout << cur_tok << " " << token_stream.size() << std::endl;
             if(cur_tok.type != TokenType::Operator)
                 return lhs;
             operator_precedense = get_operator_precedense(cur_tok);
-            // std::cout << operator_precedense << std::endl;
         }
         if (operator_precedense < min_operator_precedense){
             return lhs;
@@ -168,7 +166,6 @@ std::shared_ptr<ASTNode> parse_function(std::list<Token> & token_stream){
             token_stream.pop_front();
             continue;
         } else {
-            //std::cerr << *fun << std::endl;
             throw syntax_error(
                 "Unexpected token: " + to_string(token_stream.front())
             );
@@ -184,7 +181,6 @@ std::shared_ptr<ASTNode> parse_primary(std::list<Token> & token_stream){
     } else if (token_stream.front().type == TokenType::Number){
         return parse_literal(token_stream);
     } else if (token_stream.front().type == TokenType::Identifier){
-        //std::cout << token_stream.front().value << std::endl;
         return parse_ident(token_stream);
     } else if (token_stream.front().type == TokenType::Delim){
         throw syntax_error("Unexpected delimeter.");
