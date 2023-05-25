@@ -302,7 +302,7 @@ Digits & Digits::operator %= (const Digits & divider){
 }
 
 u32 find_digit(const Digits & a, const Digits & b){
-    u32 digit = (1 << 30);
+    u32 digit = (1 << 31);
     u32 step = digit;
     while (!(b * digit <= a && b*(digit+1) > a)){
         step >>= 1;
