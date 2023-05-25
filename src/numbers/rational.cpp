@@ -98,7 +98,7 @@ std::ostream & operator << (std::ostream & os, const Rational & r){
     if (r.denominator == 1){
         return os << r.numerator;
     } else 
-        return os << "(" << r.numerator << " / " << r.denominator << ")";
+        return os << "( " << r.numerator << " / " << r.denominator << " )";
 }
 
 
