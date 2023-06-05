@@ -3,17 +3,21 @@
 Calvodax is a calculator, that can represent numbers with unlimited precision.
 
 ## Usage
-Run using ```sh
+Run using 
+```sh
 ./calvodax
 ```
-Export variables with ```
+Export variables with 
+```
 export filename
 ```
-Import variables with ```
+Import variables with 
+```
 import filename
 ```
 Perform basic operations with standard math notation (you have to add spaces between tokens)
-You can use functions like this ```
+You can use functions like this 
+```
 factorial ( number )
 round ( number )
 floor ( number )
@@ -36,8 +40,6 @@ data-cellpadding="2">
 odevzdání:</strong></td>
 <td class="tCell" style="text-align: left;"><strong>12.06.2023
 11:59:59</strong></td>
-<td id="countdown" class="rtCell"
-style="text-align: right;"><strong> </strong></td>
 </tr>
 <tr class="even">
 <td class="lCell"
