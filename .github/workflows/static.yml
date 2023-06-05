@@ -29,6 +29,8 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
+      - name: Doxygen
+        uses: mattnotmitt/doxygen-action@v1.9.5
       - name: Checkout
         uses: actions/checkout@v3
       - name: Setup Pages
